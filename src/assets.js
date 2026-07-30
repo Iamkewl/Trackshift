@@ -15,6 +15,7 @@ import carHero from "./assets/car-hero.webp";
 import whatsNewBg from "./assets/whats-new-bg.webp";
 import mphasis from "./assets/logo-mphasis.webp";
 import tgrHaas from "./assets/tgr-haas.svg";
+import tgrHaasDark from "./assets/tgr-haas-dark.svg";
 import dsBrar from "./assets/logo-ds-brar.webp";
 import trackGarage from "./assets/track-garage.webp";
 import trackFree from "./assets/track-free-practice.webp";
@@ -29,7 +30,13 @@ export const A = {
   carHero,
   whatsNewBg,
   mphasis,
+  // Two variants of the same mark, as the design uses. Figma ships only the
+  // `White_Alt` artwork, whose wordmark is 15 white-filled paths — correct on
+  // the dark "Supported by" strip, invisible on the white Partners card, where
+  // only the red circle and the red `R` survive. `tgrHaasDark` is that file with
+  // its white fills recoloured black; the two `#DC1F26` reds are untouched.
   tgrHaas,
+  tgrHaasDark,
   dsBrar,
   trackGarage,
   trackFree,

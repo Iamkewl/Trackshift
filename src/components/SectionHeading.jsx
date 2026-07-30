@@ -6,6 +6,14 @@ import { P_BLADE, VB_BLADE, P_CHEVRON, VB_CHEVRON } from "./paths";
  * Section heading with its animated streak.
  * `align="left"`  → the blade (About, Challenge Tracks, What's New)
  * `align="center"`→ the wide chevron (Prizes, Partners)
+ *
+ * The blade is a fixed 97px box because the design's headings are always two
+ * 48px lines. Below `lg` they wrap to three and four lines — "How is TrackShift
+ * 2026 Different?" reaches 144px — and a 97px blade pinned to the top of that
+ * puts its lower edge straight through the middle of the words, reading as a
+ * strikethrough. So below `lg` the whole blade lifts above the heading, into the
+ * section's top padding where there is always room for it. The design geometry
+ * is untouched from `lg` up.
  */
 export function SectionHeading({ children, align = "left", delay = 0 }) {
   const [ref, live] = useInView();
@@ -19,7 +27,7 @@ export function SectionHeading({ children, align = "left", delay = 0 }) {
         delay={delay}
         className={
           isLeft
-            ? "left-[-518px] top-[-27px] h-[97px] w-[1171px]"
+            ? "bottom-full left-[-518px] mb-[10px] h-[40px] w-[1171px] lg:bottom-auto lg:mb-0 lg:top-[-27px] lg:h-[97px]"
             : "left-1/2 top-[-26px] h-[150px] w-[1567px] -translate-x-1/2"
         }
       />

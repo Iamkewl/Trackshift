@@ -31,7 +31,7 @@ silently.
 src/
 ├─ TrackShiftLanding.jsx     page shell + section order
 ├─ tokens.js                 Figma variables (Haas F1 Red / White) + grid metrics
-├─ assets.js                 image manifest — see ASSETS.md
+├─ assets.js                 image manifest (provenance in its comments)
 ├─ index.css                 Tailwind entry
 ├─ components/
 │  ├─ motion.css             the speed-pulse keyframes (documented inline)
@@ -93,11 +93,12 @@ compress proportionally below it. Arrows, dots, swipe and arrow-keys all drive i
 
 **Red vectors are inline SVG, not exported assets.** Normally the wrong call,
 but the animation needs a path the code owns. Geometry is traced from isolated
-1:1 renders; the resting state matches the design. Full list in ASSETS.md.
+1:1 renders; the resting state matches the design. Geometry lives in
+`components/paths.js`.
 
 **Responsive behaviour is invented.** The Figma has no mobile or tablet frames,
 so everything below `lg` is mine, not the designer's. Desktop at 1440 is what
-tracks the design. The phone layout departs from it in four places, each because
+tracks the design. The phone layout departs from it in six places, each because
 the design's own geometry breaks down at that width:
 
 - the hero logo is centred *between* the nav links at 1440 and lands on top of
@@ -111,6 +112,27 @@ the design's own geometry breaks down at that width:
 - the carousel card relaxes from 1022×461 (2.22:1) to 16:10, and its caption
   bottom-anchors rather than pinning to 69.2%, so it fits any aspect.
 
+The last two are both the same failure — **a fixed-size red streak against copy
+that grew** — and they are the ones that actually looked broken:
+
+- **The hero streak stack.** It owns the bottom ~296px of the hero, and at 1440
+  the copy stops well clear of it, so the design never reveals an answer. On a
+  phone the copy ran to the hero's *exact* bottom edge (measured: content ended
+  at 911px in a 911px hero — zero clearance), so the blades and chevrons cut
+  straight through the date, the venue and the button. The hero now reserves that
+  band with `pb`, and below `lg` the blades tuck into the gap between the copy and
+  the chevrons. Note the streaks were already *behind* the text in z-order —
+  `-z-10` was not the fix, and a red line through a paragraph reads as "on top"
+  regardless of who wins the paint.
+- **The section-heading blade.** A fixed 97px box, sized for the design's
+  two-line 48px headings. Below `lg` they wrap to three and four lines — "How is
+  TrackShift 2026 Different?" reaches 144px — so the blade's lower edge landed
+  mid-heading and read as a strikethrough. Below `lg` the whole blade lifts above
+  the heading into the section's top padding. (Stretching it to match the heading
+  was the first instinct, but an absolutely positioned SVG sized by both `top` and
+  `bottom` is unreliable — replaced elements resolve `height: auto` from their
+  intrinsic size and ignore the second offset.)
+
 **Ambient light is the real `Group 58`, not a reconstruction.** All four plates
 (`image 2/4/5/6`) are exported and positioned at their Figma geometry — see
 "The background" below. `Rectangle 1/2/3` are not glow at all: they are
@@ -123,7 +145,20 @@ column of `+` marks down both margins. Taken out at request.
 missing because `download_assets` on the individual `image 18/19/20` nodes returns
 a shared lockup; querying the whole `Partners` frame (1:104) returns all eight
 bitmaps. The layer names repeat across all six cards while the fills differ, so
-they have to be matched against the render rather than the layer tree. See ASSETS.md.
+they have to be matched against the render rather than the layer tree.
+
+**The Haas mark ships in two variants, because the design uses two.** Figma only
+contains `Logo_CMYK_White_Alt_Hoz` — a wordmark of 15 white-filled paths plus two
+`#DC1F26` reds. That is correct on the dark "Supported by" strip and invisible on
+the white Partners card, where only the red circle and the red `R` survived.
+`tgr-haas-dark.svg` is that same file with its white fills recoloured black and
+the reds untouched; `SupportedBy` uses `A.tgrHaas`, `Partners` uses
+`A.tgrHaasDark`. The `H` inside the circle is a knockout rather than a white
+shape, so it still reads as the card colour in both. Measured against the Figma
+render of that card: 10.2% black / 67.9% white against the design's 9.7% / 68.4%.
+
+If the artwork is ever re-exported, regenerate the dark variant rather than
+hand-editing it — it is a pure `fill="white"` → `fill="black"` substitution.
 
 ## The background
 
@@ -155,17 +190,21 @@ its bitmap's aspect ratio:
 
 ## Assets
 
-**All local — resolved.** `src/assets.js` imports twelve files from `src/assets/`;
-Vite fingerprints them and emits immutable cache headers. No external dependency,
-nothing to expire.
+**All local — resolved.** Every asset is a file in `src/assets/`, imported through
+`src/assets.js` (the four `glow-plate-*` files are the exception: `Glow.jsx` imports
+them directly, since it owns their crop geometry). Vite fingerprints them and emits
+immutable cache headers. No external dependency, nothing to expire.
 
-Source bitmaps were exported from Figma, resampled to 2× design size and encoded
-WebP q86: **18.8 MB → 777 KB (96% smaller)**. Built `dist/` is ~1 MB total, with
-the JS bundle at 53 KB gzipped. `DIMS` in `assets.js` carries intrinsic sizes so
-components can pin `width`/`height` against layout shift.
+Source bitmaps came out of Figma as WebP q86. `DIMS` in `assets.js` carries intrinsic
+sizes so components can pin `width`/`height` against layout shift, and each entry
+carries its Figma node id in a comment.
 
 Nothing is outstanding — every image in the design is exported, local and placed.
-Full provenance in ASSETS.md.
+
+**When an export looks wrong, suspect the query before the pipeline.** Both
+long-standing "unfixable" asset gaps here turned out to be the wrong node being
+asked: the `image 6` plate (matched against its box rather than its inner image),
+and the three Partners logos believed absent from the design file.
 
 ## Requirements
 

@@ -9,7 +9,8 @@ import CornerTicks from "../components/CornerTicks";
  */
 const PARTNERS = [
   { role: "Industry Partner", src: A.mphasis, alt: "Mphasis Foundation" },
-  { role: "Industry Partner", src: A.tgrHaas, alt: "TGR Haas F1 Team" },
+  // Dark variant: these cards are white, and the stock artwork is white-on-transparent.
+  { role: "Industry Partner", src: A.tgrHaasDark, alt: "TGR Haas F1 Team" },
   { role: "Host", src: A.dsBrar, alt: "Plaksha University" },
   { role: "Student Club Partner", src: A.partnerStudentClub, alt: "Student club partner" },
   { role: "Implementation Partner", src: A.partnerHackCulture, alt: "HackCulture" },

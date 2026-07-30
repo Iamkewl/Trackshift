@@ -23,7 +23,11 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className={`relative min-h-[740px] overflow-hidden sm:min-h-[880px] lg:min-h-[1066px] ${live ? "ts-live" : ""}`}
+      // pb below lg: the streak stack owns the bottom ~200px of the hero, and at
+      // 1440 the copy stops well clear of it. On a phone the copy runs to the
+      // hero's exact bottom edge, so the blades and chevrons crossed the date,
+      // the venue and the button. This reserves the band they live in.
+      className={`relative min-h-[740px] overflow-hidden pb-[196px] sm:min-h-[880px] lg:min-h-[1066px] lg:pb-0 ${live ? "ts-live" : ""}`}
     >
       {/* Ambient lighting — Figma `Group 58`. See components/Glow.jsx.
           No extra vignette on top: `Rectangle 1` inside the rig is the only
@@ -116,24 +120,31 @@ export function Hero() {
       {/* Bottom streak stack — `Frame 24` + two copies of `Rectangle 23`.
           Anchored to the hero's bottom edge rather than to y=770/926/944, so
           they stay put once the hero shortens on small screens. The offsets are
-          the design's, measured up from 1066. */}
+          the design's, measured up from 1066.
+
+          `-z-10` because these are rendered after the copy and would otherwise
+          paint straight over it. At 1440 the copy stops well above them so the
+          design never reveals an answer; on a phone the hero is shorter and the
+          copy taller, and the chevrons ran clean through "PLAKSHA UNIVERSITY"
+          and the date. They are ambient speed lines — text wins. This puts them
+          alongside HeroGlow, still above it since they come later in the DOM. */}
       <SpeedStreak
         viewBox={VB_BLADE}
         d={P_BLADE}
         delay={0.15}
-        className="bottom-[203px] left-[-501px] h-[93px] w-[824px]"
+        className="bottom-[146px] left-[-501px] -z-10 h-[44px] w-[824px] lg:bottom-[203px] lg:h-[93px]"
       />
       <SpeedStreak
         viewBox={VB_BLADE}
         d={P_BLADE_R}
         delay={0.15}
-        className="bottom-[203px] right-[-501px] h-[93px] w-[824px]"
+        className="bottom-[146px] right-[-501px] -z-10 h-[44px] w-[824px] lg:bottom-[203px] lg:h-[93px]"
       />
       <SpeedStreak
         viewBox={VB_CHEVRON}
         d={P_CHEVRON}
         delay={0.5}
-        className="bottom-[-10px] left-1/2 h-[150px] w-[1567px] -translate-x-1/2"
+        className="bottom-[-10px] left-1/2 -z-10 h-[150px] w-[1567px] -translate-x-1/2"
       />
       <SpeedStreak
         viewBox={VB_CHEVRON}
@@ -141,7 +152,7 @@ export function Hero() {
         delay={0.62}
         restOpacity={0.3}
         strokeWidth={1.1}
-        className="bottom-[-28px] left-1/2 h-[150px] w-[1567px] -translate-x-1/2"
+        className="bottom-[-28px] left-1/2 -z-10 h-[150px] w-[1567px] -translate-x-1/2"
       />
     </section>
   );
