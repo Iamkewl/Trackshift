@@ -1,0 +1,68 @@
+/* ------------------------------------------------------------------ *
+ * The red speed pulse.
+ *
+ * Every red streak in the Figma file is a static outline. Here each one is
+ * drawn twice: a dim resting path that matches the design exactly, and a
+ * bright comet that races along the identical path.
+ *
+ * The comet is three stacked strokes with staggered delays and falling
+ * opacity/width — head, body, tail — which is what sells the motion blur.
+ * pathLength="100" on each path normalises the dash maths, so this single
+ * keyframe set drives every shape regardless of its real length.
+ *
+ * The sweep occupies only the first 30% of the cycle: it whips through, then
+ * rests. A continuous crawl reads as "loading", not "speed".
+ * ------------------------------------------------------------------ */
+
+@keyframes ts-sweep {
+  0%   { stroke-dashoffset: 118; opacity: 0; }
+  4%   { opacity: 1; }
+  30%  { stroke-dashoffset: -18; opacity: 1; }
+  34%  { opacity: 0; }
+  100% { stroke-dashoffset: -18; opacity: 0; }
+}
+
+@keyframes ts-bar-sweep {
+  0%, 100% { transform: translateX(-120%); }
+  22%, 78% { transform: translateX(120%); }
+}
+
+@keyframes ts-marker-fade {
+  0%, 100% { opacity: 0.18; }
+  50%      { opacity: 0.5; }
+}
+
+.ts-comet {
+  stroke-dasharray: 18 100;
+  stroke-linecap: round;
+  animation-name: ts-sweep;
+  animation-timing-function: cubic-bezier(0.32, 0.06, 0.18, 1);
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  mix-blend-mode: screen;
+}
+
+/* Only run while the owning section is in the viewport. */
+.ts-live .ts-comet { animation-play-state: running; }
+
+.ts-comet--head {
+  filter: drop-shadow(0 0 3px rgba(214, 0, 28, 0.95))
+          drop-shadow(0 0 10px rgba(214, 0, 28, 0.55));
+}
+
+.ts-bar-shine {
+  animation: ts-bar-sweep 3.2s cubic-bezier(0.32, 0.06, 0.18, 1) infinite;
+  animation-play-state: paused;
+}
+.ts-live .ts-bar-shine { animation-play-state: running; }
+
+.ts-marker { animation: ts-marker-fade 4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-comet,
+  .ts-bar-shine,
+  .ts-marker {
+    animation: none !important;
+  }
+  .ts-comet { opacity: 0; }
+}
