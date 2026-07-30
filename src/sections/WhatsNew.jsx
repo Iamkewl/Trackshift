@@ -1,6 +1,19 @@
+/**
+ * "How is TrackShift 2026 Different?" — Figma `Whats new v2` (1:233).
+ *
+ * The file carries two takes on this section. `Whats new` (1:259) lays the five
+ * points out as a plain text grid; `Whats new v2` (1:233) puts each one on a
+ * photo card in a carousel. v2 is the one being built.
+ *
+ * v2's own cards carry filler copy on the two off-canvas neighbours, so the
+ * five real points come from 1:259 — the headline and intro paragraph are
+ * identical between the two frames.
+ */
+
 import { A } from "../assets";
 import SectionHeading from "../components/SectionHeading";
-import RedDash from "../components/RedDash";
+import PointCarousel from "../components/PointCarousel";
+import useInView from "../components/useInView";
 
 const POINTS = [
   {
@@ -26,15 +39,28 @@ const POINTS = [
 ];
 
 export function WhatsNew() {
+  const [ref, live] = useInView();
+
   return (
-    <section className="relative overflow-hidden pb-[70px] pt-[70px]">
-      {/* `image 2` (1:6) — the same light-trail plate, mirrored and dimmed */}
-      {/* glow now supplied by the page background */}
+    <section
+      ref={ref}
+      className={`relative overflow-hidden pb-[90px] pt-[70px] ${live ? "ts-live" : ""}`}
+    >
+      {/* `image 33` (1:234) — the car plate behind the heading, faded into black
+          at its edges so it reads as lighting rather than a pasted photo. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-[-28px] top-[146px] h-[599px] w-[856px]"
+        className="pointer-events-none absolute left-[-28px] top-[146px] hidden h-[599px] w-[856px] md:block"
       >
-        <img src={A.whatsNewBg} alt="" className="h-full w-full object-cover" />
+        <img
+          src={A.whatsNewBg}
+          alt=""
+          width={1712}
+          height={963}
+          decoding="async"
+          loading="lazy"
+          className="h-full w-full object-cover"
+        />
         <div
           className="absolute inset-0"
           style={{
@@ -45,14 +71,17 @@ export function WhatsNew() {
       </div>
 
       <div className="relative mx-auto max-w-[1440px] px-6 lg:px-[156px]">
-        <div className="grid grid-cols-1 gap-y-10 lg:grid-cols-[901px_1fr]">
+        {/* The heading (x 156, y 70) and the intro (x 827, y 299) are not two
+            columns — the intro sits below the heading and flush to the right
+            edge of the 1128px content box, which 671 + 457 lands on exactly. */}
+        <div className="relative">
           <SectionHeading delay={0.25}>
             How is
             <br />
             TrackShift <span className="text-haas-red">2026</span> Different?
           </SectionHeading>
 
-          <div className="flex max-w-[457px] flex-col gap-5 self-end text-[16px] font-medium text-white lg:text-[20px]">
+          <div className="ml-auto mt-[48px] flex w-full max-w-[457px] flex-col gap-5 text-[16px] font-medium text-white lg:mt-[133px] lg:text-[20px]">
             <p>
               <span className="font-black uppercase text-haas-red">
                 TrackShift 2025
@@ -68,18 +97,11 @@ export function WhatsNew() {
             </p>
           </div>
         </div>
+      </div>
 
-        <div className="mt-[380px] grid grid-cols-1 gap-x-[24px] gap-y-[59px] md:grid-cols-2 lg:grid-cols-3">
-          {POINTS.map((p, i) => (
-            <div key={i} className="flex max-w-[365px] gap-[14px]">
-              <RedDash />
-              <div className="flex flex-col gap-[11px] text-white">
-                <h3 className="text-[20px] font-extrabold">{p.title}</h3>
-                <p className="text-[16px] font-medium">{p.body}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Full-bleed: the neighbouring cards have to run off both page edges. */}
+      <div className="relative mt-[80px] md:mt-[150px] lg:mt-[185px]">
+        <PointCarousel points={POINTS} />
       </div>
     </section>
   );

@@ -4,14 +4,26 @@ Implemented from Figma: **HackCulture--Copy-**, node `1:4` ("Trackshit landing p
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173
-npm run build    # -> dist/
+npm run dev            # http://localhost:5173
+npm run build          # -> dist/
+npm run build:preview  # -> preview.html
 ```
 
 There is also **`preview.html`** at the project root: a fully self-contained
-build (React bundled in) you can double-click without installing anything.
-It goes stale if you edit `src/` — regenerate with `npm run build`, or just use
-`npm run dev`.
+build you can double-click without installing anything — React, the CSS and
+every image are inlined, so the only thing it fetches is the Orbitron webfont.
+
+It goes stale whenever `src/` changes. Regenerate with **`npm run build:preview`**
+(*not* `npm run build`, which only writes `dist/`). That runs
+`vite.preview.config.js` — data-URI assets, a single stylesheet, and a classic
+IIFE bundle rather than an ES module, since inline modules are unreliable over
+`file://` — then folds the output into one file with `scripts/build-preview.mjs`.
+
+Two details that script exists to get right: it re-attaches the bundle at the end
+of `<body>`, because a classic script left in Vite's `<head>` slot runs before
+`#root` exists and React dies with error #299 on a blank page; and it exits
+non-zero if any local reference survives, so a half-inlined file cannot ship
+silently.
 
 ## Layout
 
@@ -26,7 +38,8 @@ src/
 │  ├─ SpeedStreak.jsx        red streak + the comet that races along it
 │  ├─ paths.js               streak geometry traced from the Figma vectors
 │  ├─ SectionHeading.jsx     heading + its streak
-│  ├─ Glow.jsx               ambient lighting — `Group 58`, rebuilt in CSS
+│  ├─ Glow.jsx               ambient lighting — `Group 58`, the real plates
+│  ├─ PointCarousel.jsx      the `Whats new v2` photo-card carousel
 │  ├─ RedDash.jsx            `Rectangle 20`
 │  ├─ CornerTicks.jsx        partner-card L-brackets
 │  └─ useInView.js           gates animation to on-screen sections
@@ -37,7 +50,7 @@ src/
    ├─ Prizes.jsx             `prizes` (1:71)
    ├─ Partners.jsx           `Partners` (1:104)
    ├─ ChallengeTracks.jsx    `challenge tracks` (1:209)
-   └─ WhatsNew.jsx           `Whats new` (1:259)
+   └─ WhatsNew.jsx           `Whats new v2` (1:233)
 ```
 
 ## The red pulse
@@ -60,46 +73,85 @@ Tuning lives in two places — `components/motion.css` for the curve and timing,
 and the `duration` / `delay` / `strokeWidth` / `restOpacity` props on each
 `<SpeedStreak>`.
 
-## Decisions worth reviewing
+## "How is TrackShift 2026 Different?" is `Whats new v2`
 
-**`Whats new v2` (1:233) was dropped.** It duplicates `Whats new` (1:259) — same
-heading, same intro paragraph — but its cards carry filler copy
-("Customer-Centric Design", "Prioritize user experience by deeply understanding
-customer needs"). Read as an abandoned alternate. If it was the intended one,
-say so and it goes back in.
+The file carries two takes on this section. `Whats new` (1:259) is a plain text
+grid; **`Whats new v2` (1:233) is the one built** — each point on a photo card.
+
+v2 looks like three columns at rest, but it isn't: `Frame 32` sits centred at
+x 209 while `Frame 33` and `Frame 34` are parked at x -750 and x 1302, almost
+entirely off-canvas. That is a carousel caught mid-slide. It also explains the
+filler copy on the two outer cards ("Customer-Centric Design") — they exist to
+show what a neighbour looks like peeking in, so the five real points come from
+1:259 instead. The heading and intro are identical between the two frames.
+
+On a 1440 canvas the row is 138 peek + 71 gap + 1022 card + 71 gap + 138 peek;
+`--card` / `--gap` in `components/PointCarousel.jsx` reproduce that exactly and
+compress proportionally below it. Arrows, dots, swipe and arrow-keys all drive it.
+
+## Decisions worth reviewing
 
 **Red vectors are inline SVG, not exported assets.** Normally the wrong call,
 but the animation needs a path the code owns. Geometry is traced from isolated
 1:1 renders; the resting state matches the design. Full list in ASSETS.md.
 
 **Responsive behaviour is invented.** The Figma has no mobile or tablet frames,
-so the 3→2→1 column collapse and the type scaling below `lg` are mine, not the
-designer's. Desktop at 1440 is what tracks the design.
+so everything below `lg` is mine, not the designer's. Desktop at 1440 is what
+tracks the design. The phone layout departs from it in four places, each because
+the design's own geometry breaks down at that width:
 
-**Ambient glow is SVG, not bitmaps.** Figma's `image 5` / `image 6` are
-long-exposure light-trail plates: two hot rails drop from the top edge, bend
-outward at a vanishing point ~63% down, and flare into a dense spray of streaks
-across the bottom. Rebuilt in `components/Glow.jsx` as layered SVG — curved,
-radial geometry that stacked CSS gradients cannot express. `Rectangle 1/2/3`
-turned out not to be glow at all: they are heavily feathered black rects, i.e.
-vignette masks, reproduced as `<Vignette>`.
+- the hero logo is centred *between* the nav links at 1440 and lands on top of
+  them below `lg`, so it stacks above two rows of links instead;
+- `about`'s car plate is overscanned to 1106px and the copy sits over its faded
+  tail — at phone widths that tail is still bright exactly where the paragraphs
+  land, so the plate runs in flow there and overlap becomes impossible rather
+  than tuned;
+- the prize-card outline was a fixed 120px box that five- and six-line
+  paragraphs spilled straight out of; it now stretches to its copy;
+- the carousel card relaxes from 1022×461 (2.22:1) to 16:10, and its caption
+  bottom-anchors rather than pinning to 69.2%, so it fits any aspect.
 
-**Update: the plate is now real.** `image 5` (1:8) was exported and is layered
-under the SVG in `screen` blend at 92%, with the vector work dropped to 55%.
-The SVG still drives the animation; the bitmap supplies grain and falloff.
-`<HeroGlow plate={false} />` restores the pure-SVG version.
-
-Worth recording: the SVG reconstruction was built by inference, without ever
-seeing `image 5`. Side by side with the actual plate, the geometry it guessed —
-twin rails, outward bend at ~63%, bottom spray — was very close to correct.
+**Ambient light is the real `Group 58`, not a reconstruction.** All four plates
+(`image 2/4/5/6`) are exported and positioned at their Figma geometry — see
+"The background" below. `Rectangle 1/2/3` are not glow at all: they are
+100px-blurred black rects, i.e. vignette masks, reproduced as `<SoftMask>`.
 
 **The gutter plus-markers were removed.** Figma's `Group 46` / `Group 47` ran a
 column of `+` marks down both margins. Taken out at request.
-`components/MarkerRail.jsx` is an orphaned stub — nothing imports it, safe to
-delete.
 
-**Partner logos are incomplete.** Six cards, three source bitmaps in the Figma
-file — three cards currently share a placeholder. See ASSETS.md.
+**Partner logos are complete.** All six are the real marks. They were long thought
+missing because `download_assets` on the individual `image 18/19/20` nodes returns
+a shared lockup; querying the whole `Partners` frame (1:104) returns all eight
+bitmaps. The layer names repeat across all six cards while the fills differ, so
+they have to be matched against the render rather than the layer tree. See ASSETS.md.
+
+## The background
+
+`Group 58` (1:5) is one light rig spanning the whole 1440×7662 page. It used to
+be flattened into a single `page-bg.webp` pinned at y=1066; that is gone. Each
+plate now lives on the section it lights, so the glow stays with its content at
+any viewport width instead of drifting the moment a section reflows.
+
+Three things had been wrong, and all three came from the same root cause —
+**several plates are cropped, not fitted**, so a plate's box aspect ratio is not
+its bitmap's aspect ratio:
+
+- **`image 4` (1:7) was missing entirely.** Its metadata `x` reads 1440, which
+  looks off-canvas; it is actually rotated 90°, and `get_design_context` puts it
+  at left -610. It is the warm wash behind Prizes/Partners, which is why that
+  whole band of the page rendered flat black against a design that glows there.
+- **`image 6` (1:9) was the wrong bitmap.** It had been identified by matching a
+  candidate against the *box* ratio (1.50); the box is 1924×1282 but the bitmap
+  inside it is drawn at 297.57% height and top-aligned, so only its top third is
+  ever visible. The real fill is 716×1420 (0.504), matching the inner image. The
+  `saturate`/`brightness` constants that used to sit in `Glow.jsx` existed only
+  to bend the wrong bitmap toward the design, and are gone.
+- **An invented `<Vignette>` sat over the hero.** Nothing in `Group 58`
+  corresponds to it, and it was crushing the plate's edge light to roughly a
+  third of its brightness. Measured against the Figma render at the right
+  margin, the hero now reads 26.4/22.5/17.5 against the design's 27.8/23.7/18.7.
+
+`image 5` (1:8) was already correct, and is drawn at opacity 0.49.
 
 ## Assets
 
@@ -112,8 +164,8 @@ WebP q86: **18.8 MB → 777 KB (96% smaller)**. Built `dist/` is ~1 MB total, wi
 the JS bundle at 53 KB gzipped. `DIMS` in `assets.js` carries intrinsic sizes so
 components can pin `width`/`height` against layout shift.
 
-One real gap remains: the Partners section needs six logos and the Figma file only
-contains three, so three cards share a placeholder. Full detail in ASSETS.md.
+Nothing is outstanding — every image in the design is exported, local and placed.
+Full provenance in ASSETS.md.
 
 ## Requirements
 

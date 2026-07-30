@@ -19,9 +19,10 @@ import dsBrar from "./assets/logo-ds-brar.webp";
 import trackGarage from "./assets/track-garage.webp";
 import trackFree from "./assets/track-free-practice.webp";
 import trackPit from "./assets/track-pit-wall.webp";
-import partnerA from "./assets/partner-placeholder.webp";
-import glowPlateA from "./assets/glow-plate-a.webp";
-import glowPlateB from "./assets/glow-plate-b.webp";
+import partnerStudentClub from "./assets/partner-student-club.webp";
+import partnerHackCulture from "./assets/partner-hackculture.webp";
+import partnerSheBuilds from "./assets/partner-shebuilds.webp";
+import cardPitLane from "./assets/card-pit-lane.webp";
 
 export const A = {
   logo,
@@ -33,14 +34,20 @@ export const A = {
   trackGarage,
   trackFree,
   trackPit,
-  partnerA,
-  // Long-exposure light-trail plates, extracted from the Figma PDF export.
-  //   glowPlateA    `image 5` (1:8)  red twin rails + bottom flare
-  //   glowPlateB    `image 6` (1:9)  neon streak field — crimson, gold, magenta, violet
-  //   `image 2` (1:6) blue/cyan diagonal is composited into page-bg.webp instead
-  glowPlateA,
-  glowPlateB,
+  // The Partners bottom row. `download_assets` on the individual `image 18/19/20`
+  // nodes returns a shared "TRACKSHIFT 2026 | Plaksha University" lockup, which is
+  // why these were long believed missing — querying the whole `Partners` frame
+  // (1:104) surfaces all eight bitmaps, including these three.
+  partnerStudentClub,
+  partnerHackCulture,
+  partnerSheBuilds,
+  // `image 37` (1:239) — the photo behind every "How is TrackShift 2026
+  // Different?" carousel card.
+  cardPitLane,
 };
+
+// The `Group 58` light-trail plates (glow-plate-a/b/mid/diag) are imported
+// directly by components/Glow.jsx, which owns their crop and stacking geometry.
 
 /**
  * Intrinsic dimensions, so components can set width/height and avoid layout
@@ -55,9 +62,10 @@ export const DIMS = {
   trackGarage: { w: 896,  h: 597 },
   trackFree:   { w: 1100, h: 733 },
   trackPit:    { w: 936,  h: 624 },
-  partnerA:    { w: 610,  h: 152 },
-  glowPlateA:    { w: 736,  h: 1308 },
-  glowPlateB:    { w: 1920, h: 1283 },
+  partnerStudentClub: { w: 511, h: 512 },
+  partnerHackCulture: { w: 384, h: 73 },
+  partnerSheBuilds:   { w: 200, h: 200 },
+  cardPitLane: { w: 1100, h: 733 },
 };
 
 export default A;

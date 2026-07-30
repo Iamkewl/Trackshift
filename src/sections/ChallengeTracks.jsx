@@ -1,5 +1,6 @@
 import { A } from "../assets";
 import SectionHeading from "../components/SectionHeading";
+import { DiagGlow, SoftMask } from "../components/Glow";
 
 const TRACKS = [
   {
@@ -35,9 +36,16 @@ const TRACKS = [
 
 export function ChallengeTracks() {
   return (
-    <section id="tracks" className="relative overflow-hidden pt-[70px]">
-      {/* `Rectangle 3` (1:12) */}
-      {/* glow now supplied by the page background (image 2 / 1:6) */}
+    // No overflow-hidden here: `image 2` is designed to bleed past this section
+    // at both ends, and the page root already clips horizontally.
+    <section id="tracks" className="relative pt-[70px]">
+      {/* `image 2` (1:6) — page y 3706 against a section starting at 3988 */}
+      <DiagGlow className="top-[-282px] h-[1297.478px] w-[2185.506px]" />
+      {/* `Rectangle 3` (1:12) — page y 3959 */}
+      <SoftMask
+        className="top-[-29px] -z-10 h-[763px] w-[109.653%]"
+        style={{ marginLeft: "-0.035%" }}
+      />
       <div className="relative mx-auto max-w-[1440px] px-6 lg:px-[156px]">
         <SectionHeading delay={0.1}>
           challenge

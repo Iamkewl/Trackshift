@@ -18,3 +18,9 @@ export const P_BLADE_R = "M 1171 1.6 H 8 L 123 95.4 H 1171";
  *  plateau that drops off both canvas edges. */
 export const P_CHEVRON = "M 0 130 L 200 2 H 1367 L 1567 130";
 export const VB_CHEVRON = "0 0 1567 150";
+
+/** `Rectangle 23` (1:241) — the closed parallelogram that rakes across each
+ *  "How is TrackShift 2026 Different?" carousel card. Its top edge passes just
+ *  under the card title, which is what reads as the red rule beside it. */
+export const P_CARD_RAKE = "M 1672.45 1.5 L 1488.36 137.5 H 4.55 L 188.64 1.5 Z";
+export const VB_CARD_RAKE = "0 0 1677 139";

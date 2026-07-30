@@ -4,10 +4,14 @@ import SectionHeading from "../components/SectionHeading";
 export function About() {
   return (
     <section id="about" className="relative overflow-hidden pt-[63px]">
-      {/* `car 1 1` with the two stacked gradient scrims from Figma */}
+      {/* `car 1 1` with the two stacked gradient scrims from Figma.
+          Desktop only: the design overscans it to 1106px and lets the copy sit
+          over its faded tail. At phone widths that tail is still bright exactly
+          where the paragraphs land, so below lg the car runs in flow instead
+          (see below) and overlap becomes impossible rather than tuned. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[-321px] h-[1106px]"
+        className="pointer-events-none absolute inset-x-0 top-[-321px] hidden h-[1106px] lg:block"
       >
         <img
           src={A.carHero}
@@ -32,7 +36,28 @@ export function About() {
           trackshift
         </SectionHeading>
 
-        <div className="mt-[440px] grid grid-cols-1 gap-x-[24px] gap-y-10 md:grid-cols-2 lg:grid-cols-[360px_360px_264px]">
+        {/* The same plate, in flow, for everything below lg. */}
+        <div
+          aria-hidden="true"
+          className="relative mt-[30px] h-[240px] overflow-hidden sm:h-[360px] lg:hidden"
+        >
+          <img
+            src={A.carHero}
+            alt=""
+            className="h-full w-full scale-[1.35] object-cover"
+            style={{ objectPosition: "24% 46%" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,0) 26%," +
+                "rgba(0,0,0,0) 58%, rgb(0,0,0) 100%)",
+            }}
+          />
+        </div>
+
+        <div className="mt-[36px] grid grid-cols-1 gap-x-[24px] gap-y-10 md:grid-cols-2 lg:mt-[440px] lg:grid-cols-[360px_360px_264px]">
           <p className="text-[20px] font-bold uppercase text-white">
             What happens when engineering built for the racetrack is applied
             beyond it?

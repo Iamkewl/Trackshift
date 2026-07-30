@@ -1,5 +1,6 @@
 import { A } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
+import { SoftMask } from "../components/Glow";
 import useInView from "../components/useInView";
 import { P_BLADE, VB_BLADE } from "../components/paths";
 
@@ -20,8 +21,11 @@ export function SupportedBy() {
 
   return (
     <section ref={ref} className={`relative overflow-hidden py-[19px] ${live ? "ts-live" : ""}`}>
-      {/* `Rectangle 2` (1:11) */}
-      {/* glow now supplied by the page background in TrackShiftLanding */}
+      {/* `Rectangle 2` (1:11) — page y 1055 against a section starting at 1077 */}
+      <SoftMask
+        className="top-[-22px] -z-10 h-[455px] w-[109.653%]"
+        style={{ marginLeft: "-0.035%" }}
+      />
       <div className="relative mx-auto max-w-[1440px] px-6 lg:px-[156px]">
         <div className="relative">
           <SpeedStreak

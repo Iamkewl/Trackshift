@@ -9,7 +9,6 @@
 import "./components/motion.css";
 
 import useInView from "./components/useInView";
-import pageBg from "./assets/page-bg.webp";
 
 import Hero from "./sections/Hero";
 import SupportedBy from "./sections/SupportedBy";
@@ -30,31 +29,11 @@ export function TrackShiftLanding() {
       }`}
     >
       {/*
-        Page background below the hero — Figma `Group 58`, composited as one
-        image at the coordinates Figma gives its children:
-
-          image 2  (1:6)   x -438  y 4590   2185×1297   blue/cyan diagonal
-          image 5  (1:8)   x  -70  y -1072  1528×2375   red rails (tail only)
-          Rect 2/3 (1:11,1:12)                          feathered black
-
-        Built by extracting the true bitmaps out of the Figma PDF export and
-        compositing them, because the MCP asset endpoint returns the wrong
-        fill for these nodes (see ASSETS.md).
-
-        Starts at y=1066 so it does not touch the hero, which keeps its own
-        <HeroGlow>. Verified against the PDF by sampling the content-free page
-        margins: supported 2.4/2.9, tracks 8.7/10.4, whatsnew 30.5/26.9.
+        The page background is no longer one flattened bitmap. Figma's `Group 58`
+        is a page-wide light rig, and each of its plates now lives on the section
+        it lights (see components/Glow.jsx) so the glow stays with its content at
+        any viewport width instead of drifting once a section reflows.
       */}
-      <img
-        src={pageBg}
-        alt=""
-        aria-hidden="true"
-        width={1440}
-        height={6596}
-        decoding="async"
-        className="pointer-events-none absolute left-0 top-[1066px] -z-10 w-full select-none"
-      />
-
       <Hero />
       <SupportedBy />
       <About />

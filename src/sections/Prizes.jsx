@@ -1,4 +1,5 @@
 import SectionHeading from "../components/SectionHeading";
+import { MidGlow } from "../components/Glow";
 
 /** `Vector 4` + `Vector 5` (1:77, 1:78) — a deliberately broken HUD bracket. */
 function PrizePool() {
@@ -42,34 +43,41 @@ function PrizePool() {
   );
 }
 
-/** `Vector 10`–`Vector 14` — label tab plus an open outline that wraps the copy. */
+/** `Vector 10`–`Vector 14` — label tab plus an open outline that wraps the copy.
+ *
+ *  The outline stretches to the copy rather than sitting at a fixed 120px: at
+ *  narrow widths these paragraphs wrap to five or six lines and used to spill
+ *  straight out the bottom of the box. */
 function PrizeCard({ label, tabWidth = 220, children }) {
   return (
     <div className="relative w-full max-w-[360px] pt-[45px]">
-      <div className="absolute left-0 top-0 border border-b-[3.6px] border-haas-red px-[18px] pb-[11px] pt-[9px]">
+      <div className="absolute left-0 top-0 z-10 border border-b-[3.6px] border-haas-red bg-black px-[18px] pb-[11px] pt-[9px]">
         <span className="whitespace-nowrap text-[16px] font-extrabold text-white lg:text-[20px]">
           {label}
         </span>
       </div>
 
-      <svg
-        viewBox="0 0 360 120"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-        className="absolute left-0 top-[22px] h-[120px] w-full"
-      >
-        <path
-          d={`M ${tabWidth} 2 H 344 A 14 14 0 0 1 358 16 V 104 A 14 14 0 0 1 344 118 H 0`}
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth="1.4"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+      <div className="relative min-h-[75px]">
+        <svg
+          viewBox="0 0 360 120"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          className="absolute left-0 top-[-23px] w-full"
+          style={{ height: "calc(100% + 23px)" }}
+        >
+          <path
+            d={`M ${tabWidth} 2 H 344 A 14 14 0 0 1 358 16 V 104 A 14 14 0 0 1 344 118 H 0`}
+            fill="none"
+            stroke="#FFFFFF"
+            strokeWidth="1.4"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
 
-      <p className="relative pr-[16px] pt-[10px] text-[14px] font-medium text-white">
-        {children}
-      </p>
+        <p className="relative pb-[14px] pr-[16px] pt-[10px] text-[14px] font-medium text-white">
+          {children}
+        </p>
+      </div>
     </div>
   );
 }
@@ -77,6 +85,8 @@ function PrizeCard({ label, tabWidth = 220, children }) {
 export function Prizes() {
   return (
     <section id="prizes" className="relative pt-[63px]">
+      {/* `image 4` (1:7) — page y 2219 against a section starting at 2319 */}
+      <MidGlow className="top-[-100px] h-[1153px] w-[2050px]" />
       <div className="relative mx-auto max-w-[1440px] px-6 lg:px-[156px]">
         <SectionHeading align="center" delay={0.2}>
           Prizes
