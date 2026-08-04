@@ -1,22 +1,28 @@
 /**
  * TrackShift 2026 — landing page
- * Implemented from Figma: HackCulture--Copy- / node 1:4 "Trackshit landing page"
+ * Implemented from Figma: XZEbZaLnpeggQI3s1auPr2 / node-id 0-1
+ * "Trackshit landing page" (Frame 35, 114:97).
  *
- * Section order follows `Frame 35` in the Figma file. `Whats new v2` (1:233) is
- * intentionally omitted — it duplicates `Whats new` (1:259) with placeholder
- * copy. See README.md.
+ * Section order follows `Frame 35` children: hero → about → problems →
+ * prizes → timeline → partners → leadership → student words → lookback →
+ * apply → FAQs → footer.
  */
 import "./components/motion.css";
 
 import useInView from "./components/useInView";
 
 import Hero from "./sections/Hero";
-import SupportedBy from "./sections/SupportedBy";
 import About from "./sections/About";
+import Problems from "./sections/Problems";
 import Prizes from "./sections/Prizes";
+import Timeline from "./sections/Timeline";
 import Partners from "./sections/Partners";
-import ChallengeTracks from "./sections/ChallengeTracks";
-import WhatsNew from "./sections/WhatsNew";
+import Leadership from "./sections/Leadership";
+import StudentWords from "./sections/StudentWords";
+import Lookback from "./sections/Lookback";
+import Apply from "./sections/Apply";
+import FAQ from "./sections/FAQ";
+import Footer from "./sections/Footer";
 
 export function TrackShiftLanding() {
   const [ref, live] = useInView(0);
@@ -24,23 +30,27 @@ export function TrackShiftLanding() {
   return (
     <div
       ref={ref}
-      className={`relative isolate min-h-screen overflow-x-hidden bg-black font-display antialiased ${
+      className={`relative isolate min-h-screen overflow-x-hidden bg-black antialiased ${
         live ? "ts-live" : ""
       }`}
     >
       {/*
-        The page background is no longer one flattened bitmap. Figma's `Group 58`
-        is a page-wide light rig, and each of its plates now lives on the section
-        it lights (see components/Glow.jsx) so the glow stays with its content at
-        any viewport width instead of drifting once a section reflows.
+        The page background is the baked `Group 58` plates, each anchored to the
+        section it lights (see components/Glow.jsx) so a glow stays with its
+        content instead of drifting once a section reflows.
       */}
       <Hero />
-      <SupportedBy />
       <About />
+      <Problems />
       <Prizes />
+      <Timeline />
       <Partners />
-      <ChallengeTracks />
-      <WhatsNew />
+      <Leadership />
+      <StudentWords />
+      <Lookback />
+      <Apply />
+      <FAQ />
+      <Footer />
     </div>
   );
 }

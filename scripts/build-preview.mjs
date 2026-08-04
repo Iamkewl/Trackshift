@@ -39,6 +39,8 @@ let inlinedCss = 0;
 let inlinedJs = 0;
 
 // Stylesheets. Only local ones — the Google Fonts link must stay a link.
+// The replacement runs as a function so `$`-patterns in the CSS (e.g. "$&")
+// are never interpreted by String.replace.
 html = html.replace(/<link\b[^>]*>/g, (tag) => {
   const href = attr(tag, "href");
   if (!/rel="stylesheet"/.test(tag) || !isLocal(href)) return tag;
@@ -69,7 +71,10 @@ if (!inlinedCss || !inlinedJs) {
 
 html = html.replace(
   /<\/body>/,
-  `${bundles.map((js) => `<script>\n${js}\n</script>`).join("\n")}\n</body>`,
+  // Function replacement is mandatory: the bundle contains the literal
+  // "$&" (React DOM's script/style escape), which String.replace would
+  // otherwise expand to "</body>" and corrupt the JS.
+  () => `${bundles.map((js) => `<script>\n${js}\n</script>`).join("\n")}\n</body>`,
 );
 
 html = html.replace(

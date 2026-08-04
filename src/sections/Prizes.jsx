@@ -1,129 +1,114 @@
-import SectionHeading from "../components/SectionHeading";
-import { MidGlow } from "../components/Glow";
+import { A, DIMS } from "../assets";
+import SpeedStreak from "../components/SpeedStreak";
+import { CheckerGlow } from "../components/Glow";
+import RectFrame from "../components/RectFrame";
+import useInView from "../components/useInView";
+import { P_BLADE_558, VB_BLADE_558, P_BLADE_317, VB_BLADE_317, P_BLADE_568, VB_BLADE_568 } from "../components/paths";
 
-/** `Vector 4` + `Vector 5` (1:77, 1:78) — a deliberately broken HUD bracket. */
-function PrizePool() {
-  return (
-    <div className="relative mx-auto mt-[53px] w-full max-w-[842px]">
-      <svg
-        viewBox="0 0 842 192"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full"
-      >
-        <path
-          d="M 352 3 H 31 A 28 28 0 0 0 3 31 V 161 A 28 28 0 0 0 31 189 H 752"
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth="3.5"
-          vectorEffect="non-scaling-stroke"
-        />
-        <path
-          d="M 655 3 H 811 A 28 28 0 0 1 839 31 V 161 A 28 28 0 0 1 811 189 H 788"
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth="3.5"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+/**
+ * `prizes` (114:219) — 1440×1227, page y 3306. One centred column on the
+ * checker sweep (`image 2`): the "What's on the podium" frame, the "Global
+ * exposure" UK-visit card (rendered as `uk-visit-card.webp`), then the prize
+ * pool, then two caption+detail rows, each caption carrying a small red blade
+ * behind it. The big number keeps the Figma zero-as-letter-O spelling.
+ */
 
-      <p className="absolute left-1/2 top-[-22px] -translate-x-1/2 whitespace-nowrap bg-black px-4 text-[24px] font-black uppercase text-white lg:text-[33px]">
-        Prize pool
-      </p>
-      <p className="relative py-[34px] text-center text-[52px] font-extrabold text-white lg:text-[106px]">
-        <span
-          className="text-transparent"
-          style={{ WebkitTextStroke: "2px rgba(255,255,255,.55)" }}
-        >
-          INR
-        </span>{" "}
-        1,75,000
-      </p>
-    </div>
-  );
-}
-
-/** `Vector 10`–`Vector 14` — label tab plus an open outline that wraps the copy.
- *
- *  The outline stretches to the copy rather than sitting at a fixed 120px: at
- *  narrow widths these paragraphs wrap to five or six lines and used to spill
- *  straight out the bottom of the box. */
-function PrizeCard({ label, tabWidth = 220, children }) {
-  return (
-    <div className="relative w-full max-w-[360px] pt-[45px]">
-      <div className="absolute left-0 top-0 z-10 border border-b-[3.6px] border-haas-red bg-black px-[18px] pb-[11px] pt-[9px]">
-        <span className="whitespace-nowrap text-[16px] font-extrabold text-white lg:text-[20px]">
-          {label}
-        </span>
-      </div>
-
-      <div className="relative min-h-[75px]">
-        <svg
-          viewBox="0 0 360 120"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          className="absolute left-0 top-[-23px] w-full"
-          style={{ height: "calc(100% + 23px)" }}
-        >
-          <path
-            d={`M ${tabWidth} 2 H 344 A 14 14 0 0 1 358 16 V 104 A 14 14 0 0 1 344 118 H 0`}
-            fill="none"
-            stroke="#FFFFFF"
-            strokeWidth="1.4"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-
-        <p className="relative pb-[14px] pr-[16px] pt-[10px] text-[14px] font-medium text-white">
-          {children}
-        </p>
-      </div>
-    </div>
-  );
-}
+const DETAILS = [
+  "Innovation kits, certificates, T-shirts",
+  "Entry into the TrackShift Alumni Network",
+  "Direct mentorship access - TGR Haas F1 Team, Mphasis, academic and industry mentors",
+  "Select teams offered 6–12 month research or internship placements in Plaksha University labs",
+];
 
 export function Prizes() {
+  const [ref, live] = useInView(0);
+
   return (
-    <section id="prizes" className="relative pt-[63px]">
-      {/* `image 4` (1:7) — page y 2219 against a section starting at 2319 */}
-      <MidGlow className="top-[-100px] h-[1153px] w-[2050px]" />
-      <div className="relative mx-auto max-w-[1440px] px-6 lg:px-[156px]">
-        <SectionHeading align="center" delay={0.2}>
-          Prizes
-        </SectionHeading>
+    <section
+      id="prizes"
+      ref={ref}
+      className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
+    >
+      <div className="relative mx-auto max-w-[1440px] lg:min-h-[1310px]">
+        <CheckerGlow className="hidden lg:block" />
 
-        <PrizePool />
+        <RectFrame
+          strokeWidth={2}
+          className="left-[-62px] top-[89px] -z-10 hidden h-[150px] w-[1567px] lg:block"
+        />
 
-        <div className="mt-[100px] flex flex-wrap justify-center gap-x-[22px] gap-y-[54px]">
-          <PrizeCard label="Global Exposure" tabWidth={185}>
-            A{" "}
-            <span className="font-black">
-              fully sponsored UK visit to the TGR Haas F1 Team facility
-            </span>
-            , offering firsthand exposure to elite Formula 1 engineering and
-            innovation.
-          </PrizeCard>
+        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-center px-6 pb-16 pt-10 lg:absolute lg:inset-x-0 lg:top-0 lg:px-0 lg:pb-0 lg:pt-0">
+          <h2 className="text-[clamp(26px,5vw,48px)] font-black text-white lg:absolute lg:left-1/2 lg:top-[63px] lg:-translate-x-1/2 lg:text-[48px]">
+            What&rsquo;s on the podium
+          </h2>
 
-          <PrizeCard label="Research Opportunities" tabWidth={252}>
-            Top 5–6 teams to receive research or internship opportunities in
-            Plaksha University’s research labs for 6–12 months, to further
-            develop and scale prototypes
-          </PrizeCard>
+          <p className="mt-6 text-[clamp(22px,4vw,40px)] font-black text-white lg:absolute lg:left-1/2 lg:top-[155px] lg:mt-0 lg:-translate-x-1/2 lg:text-[40px]">
+            Global exposure
+          </p>
+          <SpeedStreak
+            viewBox={VB_BLADE_558}
+            d={P_BLADE_558}
+            delay={0.15}
+            strokeWidth={2}
+            restOpacity={0.5}
+            className="left-1/2 top-[175px] -z-10 hidden h-[37px] w-[558px] -translate-x-1/2 lg:block"
+          />
 
-          <PrizeCard label="Internships" tabWidth={140}>
-            A one-month opportunity at Mphasis, Bangalore, working hands-on with
-            live AI and innovation projects.
-          </PrizeCard>
+          <img
+            src={A.ukVisitCard}
+            alt="UK Visit for TOP 3"
+            width={DIMS.ukVisitCard.w}
+            height={DIMS.ukVisitCard.h}
+            loading="lazy"
+            decoding="async"
+            className="mt-8 w-full max-w-[400px] object-contain lg:absolute lg:left-1/2 lg:top-[255px] lg:mt-0 lg:w-[587px] lg:max-w-none lg:-translate-x-1/2"
+          />
 
-          <PrizeCard label="Mentorship" tabWidth={140}>
-            Learn directly from industry experts, academic leaders, and TGR Haas
-            F1 Team Representative
-          </PrizeCard>
+          <p className="mt-12 text-[32px] font-black text-white lg:absolute lg:left-1/2 lg:top-[625px] lg:mt-0 lg:-translate-x-1/2">
+            Prize pool
+          </p>
+          <p className="mt-2 text-[clamp(48px,10vw,94.7px)] font-extrabold leading-[0.95] text-white lg:absolute lg:left-1/2 lg:top-[666px] lg:mt-0 lg:-translate-x-1/2 lg:leading-none">
+            INR 1,75,OOO
+          </p>
 
-          <PrizeCard label="Perks" tabWidth={96}>
-            Receive innovation kits and certificates, while connecting and
-            networking with global technology leaders.
-          </PrizeCard>
+          <div className="mt-12 flex flex-col items-center lg:absolute lg:inset-x-0 lg:top-0 lg:mt-0">
+            <p className="lg:absolute lg:left-1/2 lg:top-[849px] lg:-translate-x-1/2 lg:text-[32px] lg:font-black">
+              Internships
+            </p>
+            <SpeedStreak
+              viewBox={VB_BLADE_317}
+              d={P_BLADE_317}
+              delay={0.2}
+              strokeWidth={2}
+              restOpacity={0.5}
+              className="left-1/2 top-[868px] -z-10 hidden h-[27px] w-[317px] -translate-x-1/2 lg:block"
+            />
+            <p className="font-helvetica mt-3 max-w-[700px] text-center text-[16px] text-white lg:absolute lg:left-1/2 lg:top-[906px] lg:mt-0 lg:-translate-x-1/2 lg:text-[20px]">
+              Internships at Mphasis office on live AI and innovation projects
+            </p>
+
+            <p className="mt-10 text-[clamp(22px,4vw,32px)] font-black text-white lg:absolute lg:left-1/2 lg:top-[971px] lg:mt-0 lg:-translate-x-1/2 lg:text-[32px]">
+              all participants get
+            </p>
+            <SpeedStreak
+              viewBox={VB_BLADE_568}
+              d={P_BLADE_568}
+              delay={0.25}
+              strokeWidth={2}
+              restOpacity={0.5}
+              className="left-1/2 top-[990px] -z-10 hidden h-[27px] w-[568px] -translate-x-1/2 lg:block"
+            />
+            <div className="mt-4 flex w-full flex-col items-center gap-[18px] lg:absolute lg:inset-x-0 lg:top-[1036px] lg:mt-0 lg:gap-[26px]">
+              {DETAILS.map((d) => (
+                <p
+                  key={d}
+                  className="font-helvetica text-center text-[14px] leading-[1.4] text-white lg:max-w-[825px] lg:text-[20px] lg:leading-[1.4]"
+                >
+                  {d}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -10,4 +10,17 @@
   body {
     font-family: "Orbitron", system-ui, sans-serif;
   }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Helvetica body copy — Figma uses Helvetica for the prose lines. */
+.font-helvetica {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Problem-card detail print — Figma uses Headland One for the small type. */
+.font-headland {
+  font-family: "Headland One", Georgia, serif;
 }

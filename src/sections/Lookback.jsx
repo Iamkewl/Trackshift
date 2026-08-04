@@ -1,0 +1,81 @@
+import { A, DIMS } from "../assets";
+import { LookbackGlow } from "../components/Glow";
+import RectFrame from "../components/RectFrame";
+import useInView from "../components/useInView";
+
+/**
+ * `a lookback` (114:390) — 1440×945, page y 7353. A 1128×636 dark frame
+ * (`Frame 85`, fill 0.18) filled by the `image 87` video poster, with the red
+ * "play video" button straddling its bottom edge. The play button is a link
+ * for now (the actual reels embed is out of scope).
+ */
+
+export function Lookback() {
+  const [ref, live] = useInView(0);
+
+  return (
+    <section
+      id="lookback"
+      ref={ref}
+      className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
+    >
+      <div className="relative mx-auto max-w-[1440px] lg:min-h-[945px]">
+        <LookbackGlow className="hidden lg:block" />
+        <RectFrame
+          strokeWidth={1}
+          className="left-[-64px] top-[87px] -z-10 hidden h-[150px] w-[1567px] lg:block"
+        />
+
+        <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black text-white lg:absolute lg:inset-x-0 lg:top-[61px] lg:px-0 lg:pt-0 lg:text-[48px]">
+          a lookback
+        </h2>
+
+        {/* Desktop frame + poster + play button. */}
+        <div className="relative z-10 hidden lg:block">
+          <div
+            className="absolute overflow-hidden"
+            style={{ left: 156, top: 162, width: 1128, height: 636, background: "#2e2e2e" }}
+          >
+            <img
+              src={A.videoPoster}
+              alt="TrackShift 2025 aftermovie"
+              width={DIMS.videoPoster.w}
+              height={DIMS.videoPoster.h}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <a
+            href="#apply"
+            className="absolute flex items-center justify-center bg-haas-red text-[36px] font-extrabold text-white transition-transform hover:scale-[1.02]"
+            style={{ left: 567, top: 768, width: 305, height: 77 }}
+          >
+            play video
+          </a>
+        </div>
+
+        {/* Mobile — same idea, fluid. */}
+        <div className="relative z-10 mx-6 my-8 overflow-hidden lg:hidden" style={{ background: "#2e2e2e" }}>
+          <img
+            src={A.videoPoster}
+            alt="TrackShift 2025 aftermovie"
+            width={DIMS.videoPoster.w}
+            height={DIMS.videoPoster.h}
+            loading="lazy"
+            decoding="async"
+            className="aspect-video w-full object-cover"
+          />
+          <a
+            href="#apply"
+            className="flex h-[60px] items-center justify-center bg-haas-red text-[28px] font-extrabold text-white"
+          >
+            play video
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default Lookback;
