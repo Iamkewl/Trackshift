@@ -9,6 +9,7 @@
  */
 import "./components/motion.css";
 
+import useDesktopScale from "./components/useDesktopScale";
 import useInView from "./components/useInView";
 
 import Hero from "./sections/Hero";
@@ -26,10 +27,12 @@ import Footer from "./sections/Footer";
 
 export function TrackShiftLanding() {
   const [ref, live] = useInView(0);
+  const zoom = useDesktopScale();
 
   return (
     <div
       ref={ref}
+      style={zoom === 1 ? undefined : { zoom }}
       className={`relative isolate min-h-screen overflow-x-hidden bg-black antialiased ${
         live ? "ts-live" : ""
       }`}

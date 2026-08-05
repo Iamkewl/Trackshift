@@ -89,6 +89,19 @@ the box. Each section positions its children at page-y coordinates translated
 into the section; the sections tile flush, absorbing the small gaps between
 Figma's own frames.
 
+**Laptop widths (1024–1439) scale the 1440 layout down, they don't reflow it.**
+Every desktop section positions its children at absolute 1440px coordinates, so
+below 1440 the right-anchored elements (nav links, Timeline Day 2, the She
+Builds mark, footer socials) overflowed the viewport and were clipped while
+centre-anchored copy drifted relative to them — spacing visibly broke on a
+smaller laptop. `useDesktopScale` fixes this by applying the CSS `zoom`
+`viewport/1440` (clamped to 1) to the page root on `lg` and up, scaling the
+whole coordinate system — geometry AND type — so the 1440 render is preserved
+exactly and merely reduced on narrower laptops. It is driven from JS
+(`window.innerWidth`) because a CSS-only `100vw/1440` would also shrink the
+mobile layout, and `zoom` on `<html>` changes how media queries resolve; below
+`lg` the scale stays 1 and the fluid mobile layout is untouched.
+
 **The Figma frame geometry is trusted per-section, not globally.** Frame 35's
 children have ~11–22px gaps between them and a handful of absolute children that
 genuinely overflow their frame (they paint over the next section in the source).
