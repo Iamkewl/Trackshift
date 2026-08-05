@@ -41,7 +41,11 @@ export function Caret({ dir = "down", className = "" }) {
   );
 }
 
-/** The caret as an actual carousel control. */
+/**
+ * The caret as an actual carousel control. Positioning is the caller's — the
+ * desktop sections place it absolutely at the design's coordinates, the mobile
+ * control bar puts it in flow.
+ */
 export function CaretButton({ dir, onClick, disabled, label, className = "" }) {
   return (
     <button
@@ -49,7 +53,7 @@ export function CaretButton({ dir, onClick, disabled, label, className = "" }) {
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className={`group absolute grid h-[32px] w-[32px] place-items-center transition-opacity ${
+      className={`group grid h-[32px] w-[32px] place-items-center transition-opacity ${
         disabled ? "cursor-default opacity-30" : "hover:opacity-70"
       } ${className}`}
     >

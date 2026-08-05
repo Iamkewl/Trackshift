@@ -2,6 +2,7 @@ import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import { PartnerGlow } from "../components/Glow";
 import { CaretButton } from "../components/Caret";
+import CarouselNav from "../components/CarouselNav";
 import useInView from "../components/useInView";
 import useCarousel from "../components/useCarousel";
 import { P_BLADE_791, VB_BLADE_791 } from "../components/paths";
@@ -33,7 +34,7 @@ const SLIDES = [
 
 export function Leadership() {
   const [ref, live] = useInView(0);
-  const { index, prev, next, enabled, swipe, hoverPause } = useCarousel(SLIDES.length);
+  const { index, prev, next, enabled, swipe, hoverPause, setIndex } = useCarousel(SLIDES.length);
   const slide = SLIDES[index];
 
   return (
@@ -95,7 +96,7 @@ export function Leadership() {
             height={slide.dims.h}
             loading="lazy"
             decoding="async"
-            className="w-full max-w-[440px] self-center object-cover lg:absolute lg:left-[232px] lg:top-[224px] lg:w-[454px] lg:max-w-none lg:self-auto"
+            className="w-full max-w-[300px] self-center object-cover lg:absolute lg:left-[232px] lg:top-[224px] lg:w-[454px] lg:max-w-none lg:self-auto"
           />
 
           <div className="flex flex-col lg:absolute lg:left-[730px] lg:top-[274px] lg:max-w-[488px]">
@@ -113,19 +114,30 @@ export function Leadership() {
           </div>
         </div>
 
+        {/* Mobile controls — the card no longer fills the column, and these
+            make the sideways swipe discoverable. */}
+        <CarouselNav
+          index={index}
+          count={SLIDES.length}
+          prev={prev}
+          next={next}
+          setIndex={setIndex}
+          className="relative z-10 pb-14"
+        />
+
         <CaretButton
           dir="left"
           onClick={prev}
           disabled={!enabled}
           label="Previous"
-          className="left-[155px] top-[390px] hidden lg:grid"
+          className="absolute left-[155px] top-[390px] hidden lg:grid"
         />
         <CaretButton
           dir="right"
           onClick={next}
           disabled={!enabled}
           label="Next"
-          className="right-[155px] top-[390px] hidden lg:grid"
+          className="absolute right-[155px] top-[390px] hidden lg:grid"
         />
       </div>
     </section>

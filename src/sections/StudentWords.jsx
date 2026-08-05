@@ -1,5 +1,6 @@
 import SpeedStreak from "../components/SpeedStreak";
 import { CaretButton } from "../components/Caret";
+import CarouselNav from "../components/CarouselNav";
 import useCarousel from "../components/useCarousel";
 import useInView from "../components/useInView";
 import { P_BLADE_975, VB_BLADE_975 } from "../components/paths";
@@ -26,7 +27,7 @@ const SLIDES = [
 
 export function StudentWords() {
   const [ref, live] = useInView(0);
-  const { index, prev, next, enabled, swipe, hoverPause } = useCarousel(SLIDES.length);
+  const { index, prev, next, enabled, swipe, hoverPause, setIndex } = useCarousel(SLIDES.length);
   const slide = SLIDES[index];
 
   return (
@@ -95,7 +96,7 @@ export function StudentWords() {
         </figure>
 
         {/* Mobile card — reflowed. */}
-        <figure className="relative z-10 mx-6 my-8 flex flex-col items-center border-2 border-haas-red px-8 pb-10 pt-10 text-center lg:hidden">
+        <figure className="relative z-10 mx-auto my-8 flex w-[calc(100%-72px)] max-w-[320px] flex-col items-center border-2 border-haas-red px-6 pb-8 pt-8 text-center lg:hidden">
           <blockquote className="font-helvetica max-w-[659px] whitespace-pre-line text-[16px] font-normal leading-[1.4] text-white">
             {slide.quote}
           </blockquote>
@@ -103,19 +104,29 @@ export function StudentWords() {
           <p className="mt-2 text-[16px] font-medium text-white/80">{slide.meta}</p>
         </figure>
 
+        {/* Mobile controls — see Leadership. */}
+        <CarouselNav
+          index={index}
+          count={SLIDES.length}
+          prev={prev}
+          next={next}
+          setIndex={setIndex}
+          className="relative z-10 pb-14"
+        />
+
         <CaretButton
           dir="left"
           onClick={prev}
           disabled={!enabled}
           label="Previous"
-          className="left-[155px] top-[425px] hidden lg:grid"
+          className="absolute left-[155px] top-[425px] hidden lg:grid"
         />
         <CaretButton
           dir="right"
           onClick={next}
           disabled={!enabled}
           label="Next"
-          className="right-[155px] top-[425px] hidden lg:grid"
+          className="absolute right-[155px] top-[425px] hidden lg:grid"
         />
       </div>
     </section>
