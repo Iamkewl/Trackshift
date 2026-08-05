@@ -67,9 +67,13 @@ export function Leadership() {
 
         {/* 114:358 / 114:359 — outlined quote marks, no fill, 1px red stroke.
             Positioned by their INK, not the Figma text box: a 231px line box
-            carries the glyph ~46px down, and the closing mark sits a further
-            ~79px lower than its box implies. Values measured off the design's
-            own SVG render. */}
+            carries the glyph ~46px below its top.
+
+            The closing mark is the same glyph turned 180°, which is why its
+            ink sits ~79px lower than its box implies (rotating moves the ink
+            from 46px below the top to 121px). Rotating it is what makes the
+            pair read as open/close instead of two identical marks — and it
+            puts the box back on the Figma coordinate (1001,270). */}
         <span
           aria-hidden="true"
           className="pointer-events-none absolute left-[712px] top-[182px] hidden select-none text-[231px] font-black leading-none lg:block"
@@ -79,7 +83,7 @@ export function Leadership() {
         </span>
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-[1002px] top-[349px] hidden select-none text-[231px] font-black leading-none lg:block"
+          className="pointer-events-none absolute left-[1001px] top-[270px] hidden rotate-180 select-none text-[231px] font-black leading-none lg:block"
           style={{ color: "transparent", WebkitTextStroke: "1px #D6001C" }}
         >
           &ldquo;
