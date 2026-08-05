@@ -112,17 +112,11 @@ export function Partners() {
         </div>
 
         {/* Mobile — reflowed as a wrap grid; the marks fit rather than crop. */}
-        <div className="relative z-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-8 px-6 pb-16 pt-8 lg:hidden">
-          <img
-            src={A.partnerMphasis}
-            alt="Mphasis Foundation"
-            width={DIMS.partnerMphasis.w}
-            height={DIMS.partnerMphasis.h}
-            loading="lazy"
-            decoding="async"
-            className="w-full max-w-[320px] object-contain"
-          />
-          {LOGOS.slice(1).map((l) => (
+        {/* Mobile — one mark per row. Two-up crushed the wide marks (the
+            Plaksha lock-up carries three lines of fine print), so each gets
+            the full column and is fitted rather than cropped. */}
+        <div className="relative z-10 flex flex-col items-center gap-9 px-6 pb-16 pt-8 lg:hidden">
+          {LOGOS.map((l) => (
             <img
               key={l.key}
               src={l.img}
@@ -131,7 +125,7 @@ export function Partners() {
               height={l.dims.h}
               loading="lazy"
               decoding="async"
-              className="h-[64px] w-[calc(50%-12px)] max-w-[200px] object-contain"
+              className="h-auto max-h-[76px] w-full max-w-[280px] object-contain"
             />
           ))}
         </div>

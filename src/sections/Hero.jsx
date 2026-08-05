@@ -96,13 +96,13 @@ export function Hero() {
           </div>
 
           {/* 5o teams / 3 problems / 24 hours */}
-          <div className="mt-[36px] flex w-full max-w-[708px] items-start justify-between lg:mt-[93px]">
+          <div className="mt-[36px] flex w-full max-w-[708px] items-start justify-between gap-2 lg:mt-[93px] lg:gap-0">
             {STATS.map((s) => (
-              <div key={s.label} className="flex flex-col items-center">
-                <span className="text-[clamp(38px,7vw,58px)] font-black uppercase leading-none text-haas-red lg:text-[58.34px]">
+              <div key={s.label} className="flex min-w-0 flex-col items-center">
+                <span className="text-[clamp(30px,7vw,58px)] font-black uppercase leading-none text-haas-red lg:text-[58.34px]">
                   {s.value}
                 </span>
-                <span className="mt-[5px] text-[24px] font-extrabold uppercase text-white lg:text-[35px] lg:leading-[44px]">
+                <span className="mt-[5px] text-[clamp(13px,4.2vw,24px)] font-extrabold uppercase text-white lg:text-[35px] lg:leading-[44px]">
                   {s.label}
                 </span>
               </div>

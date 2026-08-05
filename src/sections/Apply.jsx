@@ -48,15 +48,15 @@ export function Apply() {
 
         {/* Mobile stats — reflowed row. */}
         <div className="relative z-10 flex flex-col items-center px-6 pb-16 pt-14 lg:hidden">
-          <div className="flex w-full max-w-[420px] items-start justify-between">
+          <div className="flex w-full max-w-[420px] items-start justify-between gap-2">
             {STATS.map((s) => (
-              <div key={s.label} className="flex flex-col items-center">
-                <span className="text-[40px] font-black uppercase leading-none text-haas-red">{s.value}</span>
-                <span className="mt-2 text-[22px] font-extrabold uppercase text-white">{s.label}</span>
+              <div key={s.label} className="flex min-w-0 flex-col items-center">
+                <span className="text-[clamp(28px,8vw,40px)] font-black uppercase leading-none text-haas-red">{s.value}</span>
+                <span className="mt-2 text-[clamp(12px,4vw,22px)] font-extrabold uppercase text-white">{s.label}</span>
               </div>
             ))}
           </div>
-          <p className="font-helvetica mt-10 text-center text-[24px] text-white">
+          <p className="font-helvetica mt-10 text-center text-[clamp(17px,5vw,24px)] text-white">
             Applications close 22 August.
           </p>
           <a
