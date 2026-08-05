@@ -63,14 +63,23 @@ export function Hero() {
           >
             trackshift ‘25
           </a>
-          {/* Mobile nav row */}
-          <div className="flex w-full max-w-[380px] items-center justify-between text-[14px] font-bold uppercase text-white lg:hidden">
+          {/* Mobile nav — a 2×2 grid, not a row. Four uppercase labels in one
+              line do not fit a phone ("TRACKSHIFT '25" alone is half the
+              width), so they collided and wrapped mid-word. Each cell is its
+              own tap target with a divider, which also gets them well clear of
+              the 44px minimum. */}
+          <ul className="grid w-full max-w-[380px] grid-cols-2 gap-px overflow-hidden bg-white/15 text-[13px] font-bold uppercase text-white lg:hidden">
             {NAV.map((n) => (
-              <a key={n.label} href={n.href} className="hover:text-haas-red">
-                {n.label}
-              </a>
+              <li key={n.label} className="bg-black">
+                <a
+                  href={n.href}
+                  className="flex min-h-[44px] items-center justify-center px-2 text-center leading-tight transition-colors hover:text-haas-red"
+                >
+                  {n.label}
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </nav>
 
         {/* Copy block — centred stack, absolute at the design's y at lg.

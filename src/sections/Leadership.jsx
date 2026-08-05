@@ -33,7 +33,7 @@ const SLIDES = [
 
 export function Leadership() {
   const [ref, live] = useInView(0);
-  const { index, prev, next, enabled } = useCarousel(SLIDES.length);
+  const { index, prev, next, enabled, swipe, hoverPause } = useCarousel(SLIDES.length);
   const slide = SLIDES[index];
 
   return (
@@ -42,7 +42,14 @@ export function Leadership() {
       ref={ref}
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
-      <div className="relative mx-auto max-w-[1440px] lg:min-h-[748px]">
+      {/* touchAction pan-y keeps vertical page scrolling working over the
+          swipe area, so only horizontal drags reach the carousel. */}
+      <div
+        className="relative mx-auto max-w-[1440px] lg:min-h-[748px]"
+        {...swipe}
+        {...hoverPause}
+        style={{ touchAction: "pan-y" }}
+      >
         {/* `image 67` runs 287px past the Partners clip into this section. */}
         <PartnerGlow className="hidden lg:block" top={-723} />
         <SpeedStreak
