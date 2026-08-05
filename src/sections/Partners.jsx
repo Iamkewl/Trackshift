@@ -1,67 +1,81 @@
 import { A, DIMS } from "../assets";
 import { PartnerGlow } from "../components/Glow";
-import RectFrame from "../components/RectFrame";
 import useInView from "../components/useInView";
 
 /**
- * `Partners` (114:268) — 1440×820, page y 5026, on the wide `image 67` plate.
+ * `Partners` (114:268) — 1440×820, page y 5026, on the `image 67` plate.
  *
- * Six logo cards, each just corner-tick brackets + the logo (no card fill,
- * except Groups 23/25 which carry a white rectangle). Positions are the
- * design's exact coordinates:
+ * Six logos, each just corner-tick brackets around a transparent mark — there
+ * are NO cards behind them in the design. An earlier pass put white plates
+ * under HackCulture and She Builds to keep dark marks readable; the real marks
+ * are the transparent Figma source bitmaps, which already read white on black,
+ * so the plates are gone and the logos sit straight on the glow.
  *
- *   Mphasis   457×174 @ (492,152)   — anchor card, 11px ticks
- *   Haas      319×121 @ (366,386)
- *   Plaksha   319×121 @ (755,386)
- *   Geekroom  315×120 @ (175,582)
- *   HackCulture 315×120 @ (563,582) — white card
- *   She Builds 315×120 @ (949,583)  — white card
+ * The design's corner `+` brackets around each mark are deliberately not
+ * drawn — they read as visual noise at this size.
  *
- * The small-card logos were identified by OCR (partner-a..c2); Geekroom is
- * confirmed by the shared image ref with node 114:1289 "Geekroom 1". The white
- * cards hold HackCulture / She Builds so their (dark) marks stay visible.
+ * Every mark is placed by the design's own pattern transform rather than
+ * `object-contain`, because several are cropped inside their box (Geek Room is
+ * drawn at 32.1% width, She Builds at 155.3% height). Percentages are of the
+ * tick box; `box` is the bracket rect, `mark` the logo inside it.
  */
 
-const SMALL = [
-  { img: A.partnerHaas, dims: DIMS.partnerHaas, x: 366, y: 386, w: 319, h: 121, white: false },
-  { img: A.partnerPlaksha, dims: DIMS.partnerPlaksha, x: 755, y: 386, w: 319, h: 121, white: false },
-  { img: A.partnerGeekroom, dims: DIMS.partnerGeekroom, x: 175, y: 582, w: 315, h: 120, white: false },
-  { img: A.partnerHackCulture, dims: DIMS.partnerHackCulture, x: 563, y: 582, w: 315, h: 120, white: true },
-  { img: A.partnerSheBuilds, dims: DIMS.partnerSheBuilds, x: 949, y: 583, w: 315, h: 120, white: true },
+const LOGOS = [
+  {
+    key: "mphasis",
+    img: A.partnerMphasis,
+    dims: DIMS.partnerMphasis,
+    alt: "Mphasis Foundation",
+    box: { left: 492, top: 152, width: 457, height: 174 },
+    // pattern16 — 108.86% × 100%, offset -4.43% x
+    mark: { left: "-4.432%", top: "0%", width: "108.864%", height: "100%" },
+  },
+  {
+    key: "tgr",
+    img: A.partnerHaas,
+    dims: DIMS.partnerHaas,
+    alt: "TGR Haas F1 Team",
+    box: { left: 366, top: 386, width: 319, height: 121 },
+    // pattern17 — 100% × 93.31%, offset +3.35% y
+    mark: { left: "0%", top: "3.347%", width: "100%", height: "93.305%" },
+  },
+  {
+    key: "plaksha",
+    img: A.partnerPlaksha,
+    dims: DIMS.partnerPlaksha,
+    alt: "Plaksha University — DS Brar Center for Girls and Women in STEM",
+    box: { left: 755, top: 386, width: 319, height: 121 },
+    // pattern18 — 100% × 115.39%, offset -7.70% y
+    mark: { left: "0%", top: "-7.696%", width: "100%", height: "115.392%" },
+  },
+  {
+    key: "geekroom",
+    img: A.partnerGeekroom,
+    dims: DIMS.partnerGeekroom,
+    alt: "Geek Room Plaksha",
+    box: { left: 175, top: 582, width: 315, height: 120 },
+    // pattern20 — 32.13% × 100%, offset +33.94% x
+    mark: { left: "33.935%", top: "0%", width: "32.129%", height: "100%" },
+  },
+  {
+    key: "hackculture",
+    img: A.partnerHackCulture,
+    dims: DIMS.partnerHackCulture,
+    alt: "HackCulture",
+    box: { left: 563, top: 582, width: 315, height: 120 },
+    // pattern19 — 96.02% × 52.45%, offset (1.99%, 23.77%)
+    mark: { left: "1.990%", top: "23.773%", width: "96.020%", height: "52.454%" },
+  },
+  {
+    key: "shebuilds",
+    img: A.partnerSheBuilds,
+    dims: DIMS.partnerSheBuilds,
+    alt: "She Builds",
+    box: { left: 949, top: 583, width: 315, height: 120 },
+    // pattern21 — 54.04% × 155.30%, offset (23.31%, -21.50%)
+    mark: { left: "23.310%", top: "-21.498%", width: "54.044%", height: "155.302%" },
+  },
 ];
-
-function Ticks({ size, className }) {
-  return (
-    <>
-      <span className={`absolute w-px ${className}`} style={{ left: size / 2, top: 0, height: size }} />
-      <span className={`absolute h-px ${className}`} style={{ left: 0, top: size / 2, width: size }} />
-      <span
-        className={`absolute w-px ${className}`}
-        style={{ right: size / 2, top: 0, height: size }}
-      />
-      <span
-        className={`absolute h-px ${className}`}
-        style={{ right: 0, top: size / 2, width: size }}
-      />
-      <span
-        className={`absolute w-px ${className}`}
-        style={{ left: size / 2, bottom: 0, height: size }}
-      />
-      <span
-        className={`absolute h-px ${className}`}
-        style={{ left: 0, bottom: size / 2, width: size }}
-      />
-      <span
-        className={`absolute w-px ${className}`}
-        style={{ right: size / 2, bottom: 0, height: size }}
-      />
-      <span
-        className={`absolute h-px ${className}`}
-        style={{ right: 0, bottom: size / 2, width: size }}
-      />
-    </>
-  );
-}
 
 export function Partners() {
   const [ref, live] = useInView(0);
@@ -72,80 +86,53 @@ export function Partners() {
       ref={ref}
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
-      <div className="relative mx-auto max-w-[1440px] lg:min-h-[820px]">
+      <div className="relative mx-auto max-w-[1440px] lg:min-h-[831px]">
         <PartnerGlow className="hidden lg:block" />
-        <RectFrame
-          strokeWidth={2}
-          className="left-[-62px] top-[89px] -z-10 hidden h-[150px] w-[1567px] lg:block"
-        />
 
-        <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black text-white lg:absolute lg:inset-x-0 lg:top-[63px] lg:px-0 lg:pt-0 lg:text-[48px]">
+        <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black uppercase text-white lg:absolute lg:inset-x-0 lg:top-[63px] lg:px-0 lg:pt-0 lg:text-[48px]">
           partners
         </h2>
 
-        {/* Desktop — exact card coordinates. */}
+        {/* Desktop — exact box + mark coordinates. */}
         <div className="relative z-10 hidden lg:block">
-          {/* Mphasis — the anchor card. */}
-          <div className="absolute" style={{ left: 492, top: 152, width: 457, height: 174 }}>
-            <Ticks size={11} className="bg-white/70" />
-            <img
-              src={A.partnerMphasis}
-              alt="Mphasis"
-              width={DIMS.partnerMphasis.w}
-              height={DIMS.partnerMphasis.h}
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-[10px] h-[calc(100%-20px)] w-[calc(100%-20px)] object-contain"
-            />
-          </div>
-          {SMALL.map((p) => (
-            <div key={p.img} className="absolute" style={{ left: p.x, top: p.y, width: p.w, height: p.h }}>
-              <Ticks size={8} className="bg-white/70" />
-              <div
-                className={`absolute inset-[7px] ${p.white ? "bg-white" : ""} flex items-center justify-center`}
-              >
-                <img
-                  src={p.img}
-                  alt="Partner logo"
-                  width={p.dims.w}
-                  height={p.dims.h}
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-contain"
-                />
-              </div>
+          {LOGOS.map((l) => (
+            <div key={l.key} className="absolute" style={l.box}>
+              <img
+                src={l.img}
+                alt={l.alt}
+                width={l.dims.w}
+                height={l.dims.h}
+                loading="lazy"
+                decoding="async"
+                className="absolute max-w-none object-fill"
+                style={l.mark}
+              />
             </div>
           ))}
         </div>
 
-        {/* Mobile — reflowed as a wrap grid. */}
-        <div className="relative z-10 flex flex-wrap items-center justify-center gap-5 px-6 pb-16 pt-8 lg:hidden">
+        {/* Mobile — reflowed as a wrap grid; the marks fit rather than crop. */}
+        <div className="relative z-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-8 px-6 pb-16 pt-8 lg:hidden">
           <img
             src={A.partnerMphasis}
-            alt="Mphasis"
+            alt="Mphasis Foundation"
             width={DIMS.partnerMphasis.w}
             height={DIMS.partnerMphasis.h}
             loading="lazy"
             decoding="async"
-            className="w-full max-w-[380px] object-contain"
+            className="w-full max-w-[320px] object-contain"
           />
-          {SMALL.map((p) => (
-            <div
-              key={p.img}
-              className={`flex h-[86px] w-[calc(50%-10px)] max-w-[220px] items-center justify-center p-2 ${
-                p.white ? "bg-white" : ""
-              }`}
-            >
-              <img
-                src={p.img}
-                alt="Partner logo"
-                width={p.dims.w}
-                height={p.dims.h}
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-contain"
-              />
-            </div>
+          {LOGOS.slice(1).map((l) => (
+            <img
+              key={l.key}
+              src={l.img}
+              alt={l.alt}
+              width={l.dims.w}
+              height={l.dims.h}
+              loading="lazy"
+              decoding="async"
+              className="h-[64px] w-[calc(50%-12px)] max-w-[200px] object-contain"
+            />
           ))}
         </div>
       </div>

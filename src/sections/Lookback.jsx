@@ -1,6 +1,5 @@
 import { A, DIMS } from "../assets";
 import { LookbackGlow } from "../components/Glow";
-import RectFrame from "../components/RectFrame";
 import useInView from "../components/useInView";
 
 /**
@@ -19,14 +18,10 @@ export function Lookback() {
       ref={ref}
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
-      <div className="relative mx-auto max-w-[1440px] lg:min-h-[945px]">
+      <div className="relative mx-auto max-w-[1440px] lg:min-h-[956px]">
         <LookbackGlow className="hidden lg:block" />
-        <RectFrame
-          strokeWidth={1}
-          className="left-[-64px] top-[87px] -z-10 hidden h-[150px] w-[1567px] lg:block"
-        />
 
-        <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black text-white lg:absolute lg:inset-x-0 lg:top-[61px] lg:px-0 lg:pt-0 lg:text-[48px]">
+        <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black uppercase text-white lg:absolute lg:inset-x-0 lg:top-[61px] lg:px-0 lg:pt-0 lg:text-[48px]">
           a lookback
         </h2>
 
@@ -34,7 +29,7 @@ export function Lookback() {
         <div className="relative z-10 hidden lg:block">
           <div
             className="absolute overflow-hidden"
-            style={{ left: 156, top: 162, width: 1128, height: 636, background: "#2e2e2e" }}
+            style={{ left: 156, top: 162, width: 1128, height: 636, background: "#2D2D2D" }}
           >
             <img
               src={A.videoPoster}
@@ -48,7 +43,7 @@ export function Lookback() {
           </div>
           <a
             href="#apply"
-            className="absolute flex items-center justify-center bg-haas-red text-[36px] font-extrabold text-white transition-transform hover:scale-[1.02]"
+            className="absolute flex items-center justify-center bg-haas-red text-[36px] font-extrabold uppercase text-white transition-transform hover:scale-[1.02]"
             style={{ left: 567, top: 768, width: 305, height: 77 }}
           >
             play video
@@ -56,7 +51,7 @@ export function Lookback() {
         </div>
 
         {/* Mobile — same idea, fluid. */}
-        <div className="relative z-10 mx-6 my-8 overflow-hidden lg:hidden" style={{ background: "#2e2e2e" }}>
+        <div className="relative z-10 mx-6 my-8 overflow-hidden lg:hidden" style={{ background: "#2D2D2D" }}>
           <img
             src={A.videoPoster}
             alt="TrackShift 2025 aftermovie"
@@ -68,7 +63,7 @@ export function Lookback() {
           />
           <a
             href="#apply"
-            className="flex h-[60px] items-center justify-center bg-haas-red text-[28px] font-extrabold text-white"
+            className="flex h-[60px] items-center justify-center bg-haas-red text-[28px] font-extrabold uppercase text-white"
           >
             play video
           </a>

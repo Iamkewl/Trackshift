@@ -1,7 +1,6 @@
 import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
-import { CheckerGlow } from "../components/Glow";
-import RectFrame from "../components/RectFrame";
+import { CheckerGlow, ProblemsGlow, SoftMask } from "../components/Glow";
 import useInView from "../components/useInView";
 import { P_BLADE_558, VB_BLADE_558, P_BLADE_317, VB_BLADE_317, P_BLADE_568, VB_BLADE_568 } from "../components/paths";
 
@@ -13,9 +12,10 @@ import { P_BLADE_558, VB_BLADE_558, P_BLADE_317, VB_BLADE_317, P_BLADE_568, VB_B
  * behind it. The big number keeps the Figma zero-as-letter-O spelling.
  */
 
+// `Frame 80` (114:233). "Entry into the TrackShift Alumni Network" (114:235)
+// is hidden in the Figma, so it is not rendered.
 const DETAILS = [
   "Innovation kits, certificates, T-shirts",
-  "Entry into the TrackShift Alumni Network",
   "Direct mentorship access - TGR Haas F1 Team, Mphasis, academic and industry mentors",
   "Select teams offered 6–12 month research or internship placements in Plaksha University labs",
 ];
@@ -29,20 +29,25 @@ export function Prizes() {
       ref={ref}
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
-      <div className="relative mx-auto max-w-[1440px] lg:min-h-[1310px]">
+      <div className="relative mx-auto max-w-[1440px] lg:min-h-[1238px]">
+        {/* `image 4` runs 212px past the Problems clip into this section. */}
+        <ProblemsGlow className="hidden lg:block" f={-1148} />
         <CheckerGlow className="hidden lg:block" />
-
-        <RectFrame
-          strokeWidth={2}
-          className="left-[-62px] top-[89px] -z-10 hidden h-[150px] w-[1567px] lg:block"
+        {/* `Rectangle 3` (114:96) — 1579×763 @ page (-70,3959), 100px blur.
+            The black fog that holds the checker sweep down; without it the
+            plate blazes straight through the copy. */}
+        <SoftMask
+          className="-z-10 hidden lg:block"
+          style={{ left: -70, top: 653, width: 1579, height: 763 }}
         />
 
+
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-center px-6 pb-16 pt-10 lg:absolute lg:inset-x-0 lg:top-0 lg:px-0 lg:pb-0 lg:pt-0">
-          <h2 className="text-[clamp(26px,5vw,48px)] font-black text-white lg:absolute lg:left-1/2 lg:top-[63px] lg:-translate-x-1/2 lg:text-[48px]">
+          <h2 className="text-[clamp(26px,5vw,48px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[63px] lg:-translate-x-1/2 lg:text-[48px]">
             What&rsquo;s on the podium
           </h2>
 
-          <p className="mt-6 text-[clamp(22px,4vw,40px)] font-black text-white lg:absolute lg:left-1/2 lg:top-[155px] lg:mt-0 lg:-translate-x-1/2 lg:text-[40px]">
+          <p className="mt-6 text-[clamp(22px,4vw,40px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[155px] lg:mt-0 lg:-translate-x-1/2 lg:text-[40px]">
             Global exposure
           </p>
           <SpeedStreak
@@ -64,15 +69,40 @@ export function Prizes() {
             className="mt-8 w-full max-w-[400px] object-contain lg:absolute lg:left-1/2 lg:top-[255px] lg:mt-0 lg:w-[587px] lg:max-w-none lg:-translate-x-1/2"
           />
 
-          <p className="mt-12 text-[32px] font-black text-white lg:absolute lg:left-1/2 lg:top-[625px] lg:mt-0 lg:-translate-x-1/2">
+          <p className="mt-12 text-[32px] font-black uppercase text-white lg:absolute lg:left-[438px] lg:top-[625px] lg:mt-0 lg:w-[223px] lg:text-center">
             Prize pool
           </p>
-          <p className="mt-2 text-[clamp(48px,10vw,94.7px)] font-extrabold leading-[0.95] text-white lg:absolute lg:left-1/2 lg:top-[666px] lg:mt-0 lg:-translate-x-1/2 lg:leading-none">
+          {/* `Vector 4` / `Vector 5` (114:225/226) — the chamfered white
+              bracket around the prize pool, broken at the top for the
+              "Prize pool" label and at the bottom right. */}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 743.426 162.57"
+            fill="none"
+            className="absolute left-[348.574px] top-[643.72px] hidden h-[162.57px] w-[743.426px] lg:block"
+          >
+            <path
+              d="M326.137 0H735.466L743.426 8.15V154.41L735.466 162.57H715.816"
+              stroke="#fff"
+              strokeWidth="4.9739"
+            />
+            <path
+              d="M670.936 162.57H7.958L0 154.41V8.15L7.958 0H68.871"
+              stroke="#fff"
+              strokeWidth="4.9739"
+            />
+          </svg>
+
+          {/* 114:224 — white fill plus a 0.89px outside white stroke. */}
+          <p
+            className="mt-2 text-[clamp(48px,10vw,94.7px)] font-extrabold leading-[0.95] text-white lg:absolute lg:left-[385px] lg:top-[666px] lg:mt-0 lg:w-[666px] lg:text-center lg:leading-none"
+            style={{ WebkitTextStroke: "0.89px #FFFFFF" }}
+          >
             INR 1,75,OOO
           </p>
 
           <div className="mt-12 flex flex-col items-center lg:absolute lg:inset-x-0 lg:top-0 lg:mt-0">
-            <p className="lg:absolute lg:left-1/2 lg:top-[849px] lg:-translate-x-1/2 lg:text-[32px] lg:font-black">
+            <p className="text-[clamp(22px,4vw,32px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[849px] lg:-translate-x-1/2 lg:text-[32px]">
               Internships
             </p>
             <SpeedStreak
@@ -87,7 +117,7 @@ export function Prizes() {
               Internships at Mphasis office on live AI and innovation projects
             </p>
 
-            <p className="mt-10 text-[clamp(22px,4vw,32px)] font-black text-white lg:absolute lg:left-1/2 lg:top-[971px] lg:mt-0 lg:-translate-x-1/2 lg:text-[32px]">
+            <p className="mt-10 text-[clamp(22px,4vw,32px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[971px] lg:mt-0 lg:-translate-x-1/2 lg:text-[32px]">
               all participants get
             </p>
             <SpeedStreak
@@ -98,11 +128,11 @@ export function Prizes() {
               restOpacity={0.5}
               className="left-1/2 top-[990px] -z-10 hidden h-[27px] w-[568px] -translate-x-1/2 lg:block"
             />
-            <div className="mt-4 flex w-full flex-col items-center gap-[18px] lg:absolute lg:inset-x-0 lg:top-[1036px] lg:mt-0 lg:gap-[26px]">
+            <div className="mt-4 flex w-full flex-col items-center gap-[18px] lg:absolute lg:inset-x-0 lg:top-[1046px] lg:mt-0 lg:gap-[10px]">
               {DETAILS.map((d) => (
                 <p
                   key={d}
-                  className="font-helvetica text-center text-[14px] leading-[1.4] text-white lg:max-w-[825px] lg:text-[20px] lg:leading-[1.4]"
+                  className="font-helvetica text-center text-[14px] leading-[1.4] text-white lg:max-w-[880px] lg:text-[20px] lg:leading-[28px]"
                 >
                   {d}
                 </p>

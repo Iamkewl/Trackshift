@@ -1,3 +1,4 @@
+import { LookbackGlow } from "../components/Glow";
 import useInView from "../components/useInView";
 
 /**
@@ -21,13 +22,15 @@ export function Apply() {
       ref={ref}
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
-      <div className="relative mx-auto max-w-[1440px] lg:min-h-[467px]">
+      <div className="relative mx-auto max-w-[1440px] lg:min-h-[478px]">
+        {/* `image 68` runs past the Lookback clip into this section. */}
+        <LookbackGlow className="hidden lg:block" f={-1117} />
         {/* Desktop stats — absolute at the design's coordinates. */}
         <div className="relative z-10 hidden lg:block">
           {STATS.map((s) => (
             <div key={s.label} className="absolute flex flex-col items-center" style={{ left: s.x, top: 74 }}>
-              <span className="text-[71.5px] font-black leading-[0.9] text-haas-red">{s.value}</span>
-              <span className="mt-[8px] text-[42.9px] font-extrabold leading-none text-white">
+              <span className="text-[71.5px] font-black uppercase leading-[0.9] text-haas-red">{s.value}</span>
+              <span className="mt-[8px] text-[42.9px] font-extrabold uppercase leading-none text-white">
                 {s.label}
               </span>
             </div>
@@ -37,7 +40,7 @@ export function Apply() {
           </p>
           <a
             href="#apply"
-            className="absolute left-1/2 top-[348px] flex h-[77px] w-[299px] -translate-x-1/2 items-center justify-center bg-haas-red text-[36px] font-extrabold text-white transition-transform hover:scale-[1.02]"
+            className="absolute left-1/2 top-[348px] flex h-[77px] w-[299px] -translate-x-1/2 items-center justify-center bg-haas-red text-[36px] font-extrabold uppercase text-white transition-transform hover:scale-[1.02]"
           >
             Apply now
           </a>
@@ -48,8 +51,8 @@ export function Apply() {
           <div className="flex w-full max-w-[420px] items-start justify-between">
             {STATS.map((s) => (
               <div key={s.label} className="flex flex-col items-center">
-                <span className="text-[40px] font-black leading-none text-haas-red">{s.value}</span>
-                <span className="mt-2 text-[22px] font-extrabold text-white">{s.label}</span>
+                <span className="text-[40px] font-black uppercase leading-none text-haas-red">{s.value}</span>
+                <span className="mt-2 text-[22px] font-extrabold uppercase text-white">{s.label}</span>
               </div>
             ))}
           </div>
@@ -58,7 +61,7 @@ export function Apply() {
           </p>
           <a
             href="#apply"
-            className="mt-8 flex h-[64px] w-full max-w-[299px] items-center justify-center bg-haas-red text-[30px] font-extrabold text-white"
+            className="mt-8 flex h-[64px] w-full max-w-[299px] items-center justify-center bg-haas-red text-[30px] font-extrabold uppercase text-white"
           >
             Apply now
           </a>

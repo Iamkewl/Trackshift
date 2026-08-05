@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SpeedStreak from "../components/SpeedStreak";
 import Caret from "../components/Caret";
 import useInView from "../components/useInView";
@@ -6,11 +7,10 @@ import { P_BLADE_666, VB_BLADE_666 } from "../components/paths";
 /**
  * `FAQs` (114:410) — 1440×535, page y 8787. Two columns of Q&A (Frames 78/79).
  *
- * In Figma the answer boxes overlap the next question row (the questions are
- * pinned at y8999/9056/9113 while answers extend past them), so the real
- * render would collide. This implementation reflows each item as a clean
- * question + answer block — the obvious intent — instead of reproducing the
- * overlap.
+ * In Figma every answer is hidden and only the questions are drawn — the rows
+ * are a collapsed accordion, which is what the `CaretDown-r` on each row is
+ * for. Each item here toggles open, one column at a time, so the grid never
+ * reproduces the overlap the Figma has if you unhide the answers.
  */
 
 const FAQS = [
@@ -43,19 +43,37 @@ const FAQS = [
 const LEFT = FAQS.slice(0, 3);
 const RIGHT = FAQS.slice(3);
 
-function FaqItem({ faq }) {
+function FaqItem({ faq, id }) {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col gap-[14px]">
+    <div className="flex flex-col">
       <button
         type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-controls={id}
         className="flex items-center justify-between gap-4 text-left text-[16px] font-extrabold leading-tight text-white transition-colors hover:text-haas-red lg:text-[20px]"
       >
         <span>{faq.q}</span>
-        <Caret dir="down" className="h-[32px] w-[32px] shrink-0 opacity-90" />
+        <Caret
+          dir="down"
+          className={`h-[32px] w-[32px] shrink-0 opacity-90 transition-transform duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </button>
-      <p className="font-helvetica text-[15px] font-normal leading-[1.4] text-white lg:text-[20px] lg:leading-[1.25]">
-        {faq.a}
-      </p>
+      {/* Collapse by grid-rows so the answer animates without a fixed height. */}
+      <div
+        id={id}
+        className="grid transition-[grid-template-rows,opacity] duration-300 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr", opacity: open ? 1 : 0 }}
+      >
+        <div className="overflow-hidden">
+          <p className="font-helvetica pt-[14px] text-[15px] font-normal leading-[1.4] text-white lg:text-[20px] lg:leading-[1.25]">
+            {faq.a}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -69,7 +87,7 @@ export function FAQ() {
       ref={ref}
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
-      <div className="relative mx-auto max-w-[1440px] lg:min-h-[535px]">
+      <div className="relative mx-auto max-w-[1440px] lg:min-h-[546px]">
         <SpeedStreak
           viewBox={VB_BLADE_666}
           d={P_BLADE_666}
@@ -78,19 +96,19 @@ export function FAQ() {
           restOpacity={0.5}
           className="left-[-246px] top-[99px] -z-10 hidden h-[55px] w-[666px] lg:block"
         />
-        <h2 className="relative z-10 px-6 pt-10 text-[clamp(30px,6vw,60px)] font-black leading-none text-white lg:absolute lg:left-[158px] lg:top-[69px] lg:px-0 lg:pt-0 lg:text-[60px]">
+        <h2 className="relative z-10 px-6 pt-10 text-[clamp(30px,6vw,60px)] font-black uppercase leading-none text-white lg:absolute lg:left-[158px] lg:top-[69px] lg:px-0 lg:pt-0 lg:text-[60px]">
           FAQs
         </h2>
 
         <div className="relative z-10 grid grid-cols-1 gap-10 px-6 pb-16 pt-8 lg:grid-cols-2 lg:gap-[99px] lg:px-[159px] lg:pb-0 lg:pt-[212px]">
-          <div className="flex flex-col gap-9 lg:gap-[44px]">
-            {LEFT.map((f) => (
-              <FaqItem key={f.q} faq={f} />
+          <div className="flex flex-col gap-9 lg:gap-[25px]">
+            {LEFT.map((f, i) => (
+              <FaqItem key={f.q} faq={f} id={`faq-l-${i}`} />
             ))}
           </div>
-          <div className="flex flex-col gap-9 lg:gap-[44px]">
-            {RIGHT.map((f) => (
-              <FaqItem key={f.q} faq={f} />
+          <div className="flex flex-col gap-9 lg:gap-[25px]">
+            {RIGHT.map((f, i) => (
+              <FaqItem key={f.q} faq={f} id={`faq-r-${i}`} />
             ))}
           </div>
         </div>

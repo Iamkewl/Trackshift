@@ -1,5 +1,5 @@
 import SpeedStreak from "../components/SpeedStreak";
-import RectFrame from "../components/RectFrame";
+import { CheckerGlow, SoftMask } from "../components/Glow";
 import useInView from "../components/useInView";
 import { P_TL_DASH, VB_TL_DASH } from "../components/paths";
 
@@ -36,13 +36,17 @@ export function Timeline() {
       ref={ref}
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
-      <div className="relative mx-auto max-w-[1440px] lg:min-h-[471px]">
-        <RectFrame
-          strokeWidth={2}
-          className="left-[-62px] top-[89px] -z-10 hidden h-[150px] w-[1567px] lg:block"
+      <div className="relative mx-auto max-w-[1440px] lg:min-h-[482px]">
+        {/* The checker sweep continues past the Prizes clip. */}
+        <CheckerGlow className="hidden lg:block" f={127.98} />
+        {/* `Rectangle 3` (114:96) — the tail of the Prizes fog, which runs on
+            past that section's clip into this one. */}
+        <SoftMask
+          className="-z-10 hidden lg:block"
+          style={{ left: -70, top: -585, width: 1579, height: 763 }}
         />
 
-        <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black text-white lg:absolute lg:inset-x-0 lg:top-[63px] lg:px-0 lg:pt-0 lg:text-[48px]">
+        <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black uppercase text-white lg:absolute lg:inset-x-0 lg:top-[63px] lg:px-0 lg:pt-0 lg:text-[48px]">
           How the weekend runs
         </h2>
 
@@ -75,19 +79,23 @@ export function Timeline() {
         </div>
 
         {/* Desktop: the two columns at the design's coordinates. */}
-        <div className="hidden lg:absolute lg:left-[179px] lg:top-[178px] lg:flex lg:max-w-[509px] lg:flex-col lg:items-end lg:text-right">
-          <p className="text-[32px] font-black leading-none text-haas-red">
-            Day o1 <span>//</span> <span className="text-white">September 12</span>
+        <div className="hidden lg:absolute lg:left-[179px] lg:top-[188px] lg:flex lg:max-w-[509px] lg:flex-col lg:items-end lg:text-right">
+          <p className="text-[32px] font-black uppercase leading-[40px] text-haas-red">
+            <span className="opacity-50">Day</span> o1{" "}
+            <span className="opacity-50">//</span>{" "}
+            <span className="text-white">September 12</span>
           </p>
-          <p className="mt-[28px] max-w-[509px] text-[16px] font-medium leading-[1.375] text-white">
+          <p className="mt-[10px] max-w-[509px] text-[16px] font-medium leading-[1.375] text-white">
             {DAY1.join(" · ")}
           </p>
         </div>
-        <div className="hidden lg:absolute lg:left-[768px] lg:top-[331px] lg:flex lg:max-w-[509px] lg:flex-col lg:items-start lg:text-left">
-          <p className="text-[32px] font-black leading-none text-haas-red">
-            Day o2 <span>//</span> <span className="text-white">September 13</span>
+        <div className="hidden lg:absolute lg:left-[768px] lg:top-[341px] lg:flex lg:max-w-[509px] lg:flex-col lg:items-start lg:text-left">
+          <p className="text-[32px] font-black uppercase leading-[40px] text-haas-red">
+            <span className="opacity-50">Day</span> o2{" "}
+            <span className="opacity-50">//</span>{" "}
+            <span className="text-white">September 13</span>
           </p>
-          <p className="mt-[28px] max-w-[509px] text-[16px] font-medium leading-[1.375] text-white">
+          <p className="mt-[10px] max-w-[509px] text-[16px] font-medium leading-[1.375] text-white">
             {DAY2.join(" · ")}
           </p>
         </div>
@@ -99,8 +107,10 @@ export function Timeline() {
 function DayBlock({ num, date, align, items }) {
   return (
     <div className={`flex flex-col ${align === "end" ? "items-end text-right" : "items-start text-left"}`}>
-      <p className="text-[26px] font-black leading-none text-haas-red">
-        Day {num} <span>//</span> <span className="text-white">{date}</span>
+      <p className="text-[26px] font-black uppercase leading-none text-haas-red">
+        <span className="opacity-50">Day</span> {num}{" "}
+        <span className="opacity-50">//</span>{" "}
+        <span className="text-white">{date}</span>
       </p>
       <ul
         className={`mt-5 flex flex-col gap-[10px] text-[14px] font-medium leading-[1.35] text-white ${

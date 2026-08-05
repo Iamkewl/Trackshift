@@ -6,6 +6,10 @@
   html,
   body {
     background: #000;
+    /* The backdrop plates are far wider than the viewport by design; without
+       this a phone gets a horizontal scrollbar and the whole page shifts. */
+    overflow-x: hidden;
+    max-width: 100%;
   }
   body {
     font-family: "Orbitron", system-ui, sans-serif;
