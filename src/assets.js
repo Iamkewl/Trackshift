@@ -9,6 +9,7 @@
  */
 
 import logo from "./assets/trackshift-logo.webp";
+import logoFooter from "./assets/trackshift-logo-footer.webp";
 import aboutCar from "./assets/about-car.webp";
 import aboutBg from "./assets/about-bg.webp";
 import card1 from "./assets/card-1.webp";
@@ -26,6 +27,7 @@ import partnerSheBuilds from "./assets/partner-shebuilds.webp";
 
 export const A = {
   logo,
+  logoFooter,
   aboutCar,
   aboutBg,
   card1,
@@ -54,6 +56,12 @@ export const A = {
  */
 export const DIMS = {
   logo: { w: 342, h: 274 },
+  // The footer/legal-line lockup (114:422) is the FULL Figma mark — badge +
+  // wordmark + tagline + "in association with" partner row — not a crop of
+  // the hero nav mark. Re-exported at 4x (1476×1308) from Figma directly so
+  // it renders undistorted at its natural aspect; the old code stretched the
+  // hero's badge-only crop into this box via `object-fill`, which squashed it.
+  logoFooter: { w: 1476, h: 1308 },
   aboutCar: { w: 2978, h: 2212 },
   aboutBg: { w: 5146, h: 3272 },
   card1: { w: 720, h: 504 },

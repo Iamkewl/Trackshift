@@ -57,3 +57,10 @@ export const VB_RECT_1567 = "0 0 1567 150";
 export const P_TL_LINE = "M 0 0 V 156";
 export const P_TL_DASH = "M 7.56942 0 L 33 0 L 25.4306 5 L 0 5 Z";
 export const VB_TL_DASH = "0 0 33 5";
+
+/** Hero `Rectangle 24` (114:115 desktop / 233:154 mobile) — the open up/
+ *  across/down bracket that frames the CTA buttons. Unlike the closed
+ *  parallelogram blades, this one has no top/bottom edge, just the two
+ *  diagonal legs and the flat span between them. */
+export const P_HERO_BRACKET = "M 1567.3 150.5 L 1363 0.5 L 204.595 0.5 L 0.295914 150.5";
+export const VB_HERO_BRACKET = "0 0 1567.59 150.903";

@@ -2,6 +2,7 @@ import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import { ProblemsGlow } from "../components/Glow";
 import useInView from "../components/useInView";
+import { redPunct } from "../components/RedPunct";
 import { P_BLADE_713, VB_BLADE_713 } from "../components/paths";
 
 /**
@@ -11,8 +12,8 @@ import { P_BLADE_713, VB_BLADE_713 } from "../components/paths";
  * section top so it joins About's band) carries the two headline lines; the
  * 713×67 blade crosses behind them. Below that, three 360px problem cards on
  * the red-rails plate (`image 4`). Each card = photo top (`card-N.webp`, the
- * scrimmed `Group 100` render), red Orbitron title, Helvetica lede, Headland
- * One problem block, and a "Read the problem" link.
+ * scrimmed `Group 100` render), red Orbitron title, Helvetica lede, Helvetica
+ * problem block, and a "Read the problem" link.
  */
 
 const CARDS = [
@@ -75,13 +76,19 @@ export function Problems() {
         />
 
         <h2 className="relative z-10 px-6 pt-10 text-right text-[clamp(26px,5vw,48px)] font-black uppercase leading-none text-white lg:absolute lg:left-[218px] lg:top-[63px] lg:w-[532px] lg:px-0 lg:pt-0 lg:text-[48px]">
-          Three problems.
+          {redPunct("Three problems.")}
         </h2>
+        {/* 114:178 — "2o26 grid" is red as a whole phrase, not just its
+            punctuation, so it's hardcoded rather than run through
+            `redPunct` (which only reddens stray periods/apostrophes). */}
         <h3 className="relative z-10 mt-2 max-w-[913px] px-6 text-[clamp(26px,5vw,48px)] font-black uppercase leading-none text-white lg:absolute lg:left-[431px] lg:top-[122px] lg:mt-0 lg:px-0 lg:text-[48px]">
-          Straight off the 2o26 grid.
+          Straight off the <span className="text-haas-red">2o26 grid</span>
+          <span className="text-haas-red">.</span>
         </h3>
+        {/* 114:179 — the comma after "problem" is also red in the design. */}
         <p className="relative z-10 mt-3 max-w-[839px] px-6 text-center text-[clamp(18px,3vw,28px)] font-bold uppercase text-white lg:absolute lg:left-[301px] lg:top-[224px] lg:mt-0 lg:px-0 lg:text-[28px]">
-          Every problem, more than one right answer.
+          Every problem<span className="text-haas-red">,</span> more than one right answer
+          <span className="text-haas-red">.</span>
         </p>
 
         <div className="relative z-10 flex flex-col items-center gap-10 px-6 pb-16 pt-10 lg:absolute lg:inset-x-0 lg:top-[313px] lg:flex-row lg:items-start lg:justify-center lg:gap-0 lg:px-0 lg:pb-0 lg:pt-0">
@@ -116,10 +123,10 @@ export function Problems() {
                   ))}
                 </h4>
                 <p className="font-helvetica mt-[37px] text-[20px] font-bold uppercase leading-[1.2] text-white">
-                  {c.lede}
+                  {redPunct(c.lede)}
                 </p>
-                <p className="font-headland mt-[16px] whitespace-pre-line text-[16px] leading-[1.3] text-white">
-                  {c.problem}
+                <p className="font-helvetica mt-[16px] whitespace-pre-line text-[16px] leading-[1.3] text-white">
+                  {redPunct(c.problem)}
                 </p>
                 {/* `Frame 21` — 261×52, 3px red outline. */}
                 <a

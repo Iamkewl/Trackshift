@@ -1,6 +1,7 @@
 import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import useInView from "../components/useInView";
+import { redPunct } from "../components/RedPunct";
 import { P_BLADE_1171, VB_BLADE_1171 } from "../components/paths";
 
 /**
@@ -30,15 +31,8 @@ export function About() {
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
       <div className="relative mx-auto max-w-[1440px] lg:min-h-[1023px]">
-        {/* Mobile backdrop — one cover crop of the wash plate. */}
-        <img
-          src={A.aboutBg}
-          alt=""
-          width={DIMS.aboutBg.w}
-          height={DIMS.aboutBg.h}
-          decoding="async"
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-60 lg:hidden"
-        />
+        {/* Brand guideline: every section but the hero is solid black on
+            mobile, so the wash-plate backdrop only ever shows at `lg`. */}
 
         {/*
           Paint order matters and is easy to get backwards: in the Figma
@@ -98,14 +92,14 @@ export function About() {
           </h3>
 
           <p className="max-w-[541px] text-[14px] font-medium leading-[1.5] text-white lg:absolute lg:left-[829px] lg:top-[636px] lg:max-w-[360px] lg:text-[16px] lg:leading-[1.375]">
-            {P1}
+            {redPunct(P1)}
           </p>
           <p className="max-w-[541px] text-[14px] font-medium leading-[1.5] text-white lg:absolute lg:left-[829px] lg:top-[805px] lg:max-w-[360px] lg:text-[16px] lg:leading-[1.375]">
-            {P2}
+            {redPunct(P2)}
           </p>
 
           <p className="max-w-[444px] text-[20px] font-bold uppercase leading-[1.3] text-haas-red lg:absolute lg:left-[266px] lg:top-[838px] lg:w-[444px] lg:max-w-[444px] lg:text-right lg:text-[32px] lg:leading-[1.25]">
-            {TAG}
+            {redPunct(TAG)}
           </p>
         </div>
       </div>

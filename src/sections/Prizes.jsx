@@ -2,7 +2,17 @@ import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import { CheckerGlow, ProblemsGlow, SoftMask } from "../components/Glow";
 import useInView from "../components/useInView";
-import { P_BLADE_558, VB_BLADE_558, P_BLADE_317, VB_BLADE_317, P_BLADE_568, VB_BLADE_568 } from "../components/paths";
+import { redPunct } from "../components/RedPunct";
+import {
+  P_BLADE_558,
+  VB_BLADE_558,
+  P_BLADE_317,
+  VB_BLADE_317,
+  P_BLADE_568,
+  VB_BLADE_568,
+  P_HERO_BRACKET,
+  VB_HERO_BRACKET,
+} from "../components/paths";
 
 /**
  * `prizes` (114:219) — 1440×1227, page y 3306. One centred column on the
@@ -41,10 +51,20 @@ export function Prizes() {
           style={{ left: -70, top: 653, width: 1579, height: 763 }}
         />
 
+        {/* `Rectangle 24` (114:220) — same open bracket as Partners/Lookback/
+            the Hero CTA, framing the section title. */}
+        <SpeedStreak
+          viewBox={VB_HERO_BRACKET}
+          d={P_HERO_BRACKET}
+          delay={0.1}
+          strokeWidth={1.4}
+          restOpacity={0.7}
+          className="left-1/2 top-[89px] -z-10 hidden h-[150px] w-[1567px] -translate-x-1/2 lg:block"
+        />
 
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-center px-6 pb-16 pt-10 lg:absolute lg:inset-x-0 lg:top-0 lg:px-0 lg:pb-0 lg:pt-0">
           <h2 className="text-[clamp(26px,5vw,48px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[63px] lg:-translate-x-1/2 lg:text-[48px]">
-            What&rsquo;s on the podium
+            {redPunct("What’s on the podium")}
           </h2>
 
           <p className="mt-6 text-[clamp(22px,4vw,40px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[155px] lg:mt-0 lg:-translate-x-1/2 lg:text-[40px]">
@@ -93,12 +113,12 @@ export function Prizes() {
             />
           </svg>
 
-          {/* 114:224 — white fill plus a 0.89px outside white stroke. */}
-          <p
-            className="mt-2 text-[clamp(48px,10vw,94.7px)] font-extrabold leading-[0.95] text-white lg:absolute lg:left-[385px] lg:top-[666px] lg:mt-0 lg:w-[666px] lg:text-center lg:leading-none"
-            style={{ WebkitTextStroke: "0.89px #FFFFFF" }}
-          >
-            INR 1,75,OOO
+          {/* 114:224 — "INR" is hollow (transparent fill, white outline
+              stroke); the number itself is solid white fill, no stroke. Two
+              different treatments on one line, not one uniform style. */}
+          <p className="mt-2 text-[clamp(48px,10vw,94.7px)] font-extrabold leading-[0.95] lg:absolute lg:left-[385px] lg:top-[666px] lg:mt-0 lg:w-[666px] lg:text-center lg:leading-none">
+            <span style={{ color: "transparent", WebkitTextStroke: "0.89px #FFFFFF" }}>INR</span>
+            <span className="text-white"> 1,75,OOO</span>
           </p>
 
           <div className="mt-12 flex flex-col items-center lg:absolute lg:inset-x-0 lg:top-0 lg:mt-0">

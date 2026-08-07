@@ -2,6 +2,7 @@ import { useState } from "react";
 import SpeedStreak from "../components/SpeedStreak";
 import Caret from "../components/Caret";
 import useInView from "../components/useInView";
+import { redPunct } from "../components/RedPunct";
 import { P_BLADE_666, VB_BLADE_666 } from "../components/paths";
 
 /**
@@ -54,7 +55,7 @@ function FaqItem({ faq, id }) {
         aria-controls={id}
         className="flex items-center justify-between gap-4 text-left text-[16px] font-extrabold leading-tight text-white transition-colors hover:text-haas-red lg:text-[20px]"
       >
-        <span>{faq.q}</span>
+        <span>{redPunct(faq.q)}</span>
         <Caret
           dir="down"
           className={`h-[32px] w-[32px] shrink-0 opacity-90 transition-transform duration-300 ${
@@ -70,7 +71,7 @@ function FaqItem({ faq, id }) {
       >
         <div className="overflow-hidden">
           <p className="font-helvetica pt-[14px] text-[15px] font-normal leading-[1.4] text-white lg:text-[20px] lg:leading-[1.25]">
-            {faq.a}
+            {redPunct(faq.a)}
           </p>
         </div>
       </div>

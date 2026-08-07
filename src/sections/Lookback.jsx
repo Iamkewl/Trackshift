@@ -1,6 +1,8 @@
 import { A, DIMS } from "../assets";
 import { LookbackGlow } from "../components/Glow";
+import SpeedStreak from "../components/SpeedStreak";
 import useInView from "../components/useInView";
+import { P_HERO_BRACKET, VB_HERO_BRACKET } from "../components/paths";
 
 /**
  * `a lookback` (114:390) — 1440×945, page y 7353. A 1128×636 dark frame
@@ -20,6 +22,17 @@ export function Lookback() {
     >
       <div className="relative mx-auto max-w-[1440px] lg:min-h-[956px]">
         <LookbackGlow className="hidden lg:block" />
+
+        {/* `Rectangle 24` (114:395) — same open bracket as the Hero CTA and
+            Partners heading, framing the section title. */}
+        <SpeedStreak
+          viewBox={VB_HERO_BRACKET}
+          d={P_HERO_BRACKET}
+          delay={0.1}
+          strokeWidth={1.4}
+          restOpacity={0.7}
+          className="left-1/2 top-[87px] -z-10 hidden h-[150px] w-[1567px] -translate-x-1/2 lg:block"
+        />
 
         <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black uppercase text-white lg:absolute lg:inset-x-0 lg:top-[61px] lg:px-0 lg:pt-0 lg:text-[48px]">
           a lookback

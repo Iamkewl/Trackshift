@@ -2,11 +2,12 @@ import { A } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import { HeroGlow } from "../components/Glow";
 import useInView from "../components/useInView";
-import { P_BLADE_824, VB_BLADE_824 } from "../components/paths";
+import { redPunct } from "../components/RedPunct";
+import { P_BLADE_824, VB_BLADE_824, P_HERO_BRACKET, VB_HERO_BRACKET } from "../components/paths";
 
 const NAV = [
-  { label: "partners", href: "#partners" },
   { label: "tracks", href: "#tracks" },
+  { label: "partners", href: "#partners" },
   { label: "prize", href: "#prizes" },
   { label: "trackshift ‘25", href: "#apply" },
 ];
@@ -33,35 +34,35 @@ export function Hero() {
             coordinates (they sit outside the 156px gutter at 1440). */}
         <nav className="relative z-10 flex flex-col items-center gap-[18px] px-6 pt-[28px] lg:absolute lg:inset-x-0 lg:top-0 lg:gap-0 lg:px-0 lg:pt-0">
           <a
-            href="#partners"
-            className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[139px] lg:top-[115px] lg:block"
-          >
-            partners
-          </a>
-          <a
             href="#tracks"
-            className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[387px] lg:top-[115px] lg:block"
+            className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[188px] lg:top-[67px] lg:block"
           >
             tracks
+          </a>
+          <a
+            href="#partners"
+            className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[420px] lg:top-[67px] lg:block"
+          >
+            partners
           </a>
           <img
             src={A.logo}
             alt="TrackShift 2026"
             width={342}
             height={274}
-            className="h-[110px] w-[137px] object-cover lg:absolute lg:left-1/2 lg:top-[84px] lg:h-[137px] lg:w-[171px] lg:-translate-x-1/2"
+            className="h-[110px] w-[137px] object-cover lg:absolute lg:left-1/2 lg:top-[36px] lg:h-[118px] lg:w-[147px] lg:-translate-x-1/2"
           />
           <a
             href="#prizes"
-            className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[941px] lg:top-[115px] lg:block"
+            className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[975.5px] lg:top-[67px] lg:block"
           >
             prize
           </a>
           <a
             href="#apply"
-            className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[1094px] lg:top-[115px] lg:block"
+            className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[1190.5px] lg:top-[67px] lg:block"
           >
-            trackshift ‘25
+            {redPunct("trackshift ‘25")}
           </a>
           {/* Mobile nav — a 2×2 grid, not a row. Four uppercase labels in one
               line do not fit a phone ("TRACKSHIFT '25" alone is half the
@@ -75,7 +76,7 @@ export function Hero() {
                   href={n.href}
                   className="flex min-h-[44px] items-center justify-center px-2 text-center leading-tight transition-colors hover:text-haas-red"
                 >
-                  {n.label}
+                  {redPunct(n.label)}
                 </a>
               </li>
             ))}
@@ -86,12 +87,18 @@ export function Hero() {
             `Build. compete. innovate.` (114:102) is hidden in the Figma, so the
             headline is the first line and the stack starts at page y320. */}
         <div className="relative z-10 mx-auto flex w-full max-w-[1055px] flex-col items-center px-6 pt-[180px] text-center lg:absolute lg:inset-x-0 lg:top-[320px] lg:mx-auto lg:px-0 lg:pt-0">
+          {/* 114:103 — the comma after "pitstop" and the closing full stop
+              are both red in the design (not just periods/apostrophes, this
+              one comma specifically), so they're hardcoded rather than run
+              through `redPunct`. */}
           <h1 className="max-w-[937px] text-[clamp(28px,5.6vw,58px)] font-black uppercase leading-[0.92] text-white lg:text-[58.5px] lg:leading-[53px]">
-            Where engineering gets pushed to its limits.
+            Where Ideas pitstop<span className="text-haas-red">,</span>
+            <br />
+            Innovation refuels<span className="text-haas-red">.</span>
           </h1>
           {/* 114:104 — 500×23, a single line in the design. */}
           <p className="font-helvetica mt-[26px] max-w-[500px] text-[16px] text-white lg:mt-[16px] lg:max-w-none lg:whitespace-nowrap lg:text-[20px] lg:leading-[23px]">
-            You don&rsquo;t need to follow the sport to solve the challenge.
+            {redPunct("You don’t need to follow the sport to solve the challenge.")}
           </p>
 
           {/* Date // venue — the separator is the red `//` glyph (190:50),
@@ -118,25 +125,44 @@ export function Hero() {
             ))}
           </div>
 
-          <a
-            href="#apply"
-            className="relative mt-[40px] flex h-[77px] w-[299px] items-center justify-center overflow-hidden bg-haas-red text-[36px] font-extrabold uppercase text-white transition-transform hover:scale-[1.02] lg:mt-[121px]"
-          >
-            <span
-              className="ts-bar-shine absolute inset-y-0 left-0 w-1/3 bg-white/25"
-              style={{ filter: "blur(10px)" }}
+          {/* `Rectangle 24` (114:115 / 233:154) — the open red bracket that
+              frames both CTA buttons: up the left, across, down the right.
+              Previously only described in a comment further down and never
+              actually rendered. Its flat span sits at the TOP of its own
+              path (114:115's y=763 lands mid-"Apply now", not centred on the
+              whole cluster), so it's pinned to the Apply button's vertical
+              centre (half its 77px height) rather than centred on the
+              wrapper — centring the bounding box put the visible line at
+              the very top instead of crossing through the button. */}
+          <div className="relative mt-[40px] flex flex-col items-center lg:mt-[121px]">
+            <SpeedStreak
+              viewBox={VB_HERO_BRACKET}
+              d={P_HERO_BRACKET}
+              delay={0.2}
+              strokeWidth={1.4}
+              restOpacity={0.8}
+              className="left-1/2 top-[38px] -z-10 h-[70px] w-[380px] -translate-x-1/2 sm:w-[460px] lg:h-[151px] lg:w-[1568px]"
             />
-            <span className="relative">Apply now</span>
-          </a>
+            <a
+              href="#apply"
+              className="relative flex h-[77px] w-[299px] items-center justify-center overflow-hidden bg-haas-red text-[36px] font-extrabold uppercase text-white transition-transform hover:scale-[1.02]"
+            >
+              <span
+                className="ts-bar-shine absolute inset-y-0 left-0 w-1/3 bg-white/25"
+                style={{ filter: "blur(10px)" }}
+              />
+              <span className="relative">Apply now</span>
+            </a>
 
-          {/* `Frame 24` (114:105) — 282×54, 3.57px red outline. */}
-          <a
-            href="#tracks"
-            className="mt-[22px] flex h-[46px] w-[248px] items-center justify-center border-[3px] border-haas-red text-[16px] font-extrabold uppercase text-white transition-colors hover:text-haas-red lg:mt-[22px] lg:h-[54px] lg:w-[282px] lg:border-[3.57px] lg:text-[20px]"
-            style={{ textShadow: "0 0 25px rgba(0,0,0,1)" }}
-          >
-            See the problems
-          </a>
+            {/* `Frame 24` (114:105) — 282×54, 3.57px red outline. */}
+            <a
+              href="#tracks"
+              className="mt-[22px] flex h-[46px] w-[248px] items-center justify-center border-[3px] border-haas-red text-[16px] font-extrabold uppercase text-white transition-colors hover:text-haas-red lg:h-[54px] lg:w-[282px] lg:border-[3.57px] lg:text-[20px]"
+              style={{ textShadow: "0 0 25px rgba(0,0,0,1)" }}
+            >
+              See the problems
+            </a>
+          </div>
 
           <p className="mt-[30px] text-[16px] font-normal text-white lg:mt-[55px] lg:text-[20px]">
             Applications close{" "}
@@ -144,8 +170,9 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Red speed lines — the two hero blades flanking the stats, and the
-            wide Rectangle 24 frame behind the CTA. Painted behind the copy. */}
+        {/* Red speed lines — the two hero blades flanking the stats row
+            (`Frame 25`, 114:118). The CTA's own bracket lives with the CTA
+            above. Painted behind the copy. */}
         <SpeedStreak
           viewBox={VB_BLADE_824}
           d={P_BLADE_824}

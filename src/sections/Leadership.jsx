@@ -5,6 +5,7 @@ import { CaretButton } from "../components/Caret";
 import CarouselNav from "../components/CarouselNav";
 import useInView from "../components/useInView";
 import useCarousel from "../components/useCarousel";
+import { redPunct } from "../components/RedPunct";
 import { P_BLADE_791, VB_BLADE_791 } from "../components/paths";
 
 /**
@@ -105,7 +106,7 @@ export function Leadership() {
 
           <div className="flex flex-col lg:absolute lg:left-[730px] lg:top-[274px] lg:max-w-[488px]">
             <p className="whitespace-pre-line text-[16px] font-medium leading-[1.4] text-white lg:leading-[1.25]">
-              {slide.quote}
+              {redPunct(slide.quote)}
             </p>
             {/* `Frame 31` (114:366) — both lines are centred in their own
                 boxes (206 / 185 wide) starting at the column's left edge. */}

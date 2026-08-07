@@ -1,5 +1,6 @@
 import { LookbackGlow } from "../components/Glow";
 import useInView from "../components/useInView";
+import { redPunct } from "../components/RedPunct";
 
 /**
  * `Apply` (114:397) — 1440×467, page y 8309. The closing CTA: the three stat
@@ -36,7 +37,7 @@ export function Apply() {
             </div>
           ))}
           <p className="font-helvetica absolute left-1/2 top-[258px] -translate-x-1/2 text-[32px] text-white">
-            Applications close 22 August.
+            {redPunct("Applications close 22 August.")}
           </p>
           <a
             href="#apply"
@@ -57,7 +58,7 @@ export function Apply() {
             ))}
           </div>
           <p className="font-helvetica mt-10 text-center text-[clamp(17px,5vw,24px)] text-white">
-            Applications close 22 August.
+            {redPunct("Applications close 22 August.")}
           </p>
           <a
             href="#apply"

@@ -3,6 +3,7 @@ import { CaretButton } from "../components/Caret";
 import CarouselNav from "../components/CarouselNav";
 import useCarousel from "../components/useCarousel";
 import useInView from "../components/useInView";
+import { redPunct } from "../components/RedPunct";
 import { P_BLADE_975, VB_BLADE_975 } from "../components/paths";
 
 /**
@@ -81,24 +82,23 @@ export function StudentWords() {
             &ldquo;
           </span>
           <blockquote className="absolute left-[50px] top-[111px] max-w-[659px] whitespace-pre-line text-[18.5px] font-medium leading-[1.24] text-white">
-            {slide.quote}
+            {redPunct(slide.quote)}
           </blockquote>
-          {/* `Frame 31` (114:383) — 239-wide and 170-wide centred boxes at
-              card-relative x506 / x575. */}
-          <figcaption>
-            <p className="absolute left-[506px] top-[317px] w-[239px] text-center text-[34.7px] font-extrabold uppercase leading-[44px] text-white">
-              {slide.name}
-            </p>
-            <p className="absolute left-[575px] top-[367px] w-[170px] text-center text-[18.5px] font-medium text-white/80">
-              {slide.meta}
-            </p>
+          {/* `Frame 31` (114:383) — a bottom-anchored flex column, right-
+              aligned, gap 5px, NOT two independently-absolute paragraphs.
+              Two fixed-position paragraphs assumed the name always fits one
+              line; "Second last"/"Third last" wrap to two and collided with
+              the meta line below. The flex column reflows instead. */}
+          <figcaption className="absolute bottom-[40px] left-[625px] flex -translate-x-1/2 flex-col items-end gap-[5px] text-right">
+            <p className="text-[34.7px] font-extrabold uppercase leading-[1.1] text-white">{slide.name}</p>
+            <p className="text-[18.5px] font-medium text-white/80">{slide.meta}</p>
           </figcaption>
         </figure>
 
         {/* Mobile card — reflowed. */}
         <figure className="relative z-10 mx-auto my-8 flex w-[calc(100%-72px)] max-w-[320px] flex-col items-center border-2 border-haas-red px-6 pb-8 pt-8 text-center lg:hidden">
           <blockquote className="font-helvetica max-w-[659px] whitespace-pre-line text-[16px] font-normal leading-[1.4] text-white">
-            {slide.quote}
+            {redPunct(slide.quote)}
           </blockquote>
           <p className="mt-8 text-[28px] font-extrabold uppercase leading-none text-white">{slide.name}</p>
           <p className="mt-2 text-[16px] font-medium text-white/80">{slide.meta}</p>

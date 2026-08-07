@@ -1,11 +1,14 @@
 import { A, DIMS } from "../assets";
 import useInView from "../components/useInView";
+import { redPunct } from "../components/RedPunct";
 
 /**
- * `Footer` (114:421) — 1440×553, page y 9333. The inverse wordmark (drawn at
- * 369×327 — the design stretches it from the 171×137 hero crop), the four
- * social rows (Frame 90), and the legal line. Brand icons are approximated
- * inline (the Figma ones are component instances with gradient fills).
+ * `Footer` (114:421) — 1440×553, page y 9333. The full lockup at 369×327
+ * (`A.logoFooter` — badge + wordmark + tagline + "in association with"
+ * partner row, re-exported straight from Figma node 114:422, NOT a stretch
+ * of the hero's badge-only crop), the four social rows (Frame 90), and the
+ * legal line. Brand icons are approximated inline (the Figma ones are
+ * component instances with gradient fills).
  */
 
 /**
@@ -103,66 +106,58 @@ export function Footer() {
       <div className="relative mx-auto max-w-[1440px] lg:min-h-[553px]">
         {/* Desktop layout — design coordinates. */}
         <img
-          src={A.logo}
-          alt="TrackShift"
-          width={DIMS.logo.w}
-          height={DIMS.logo.h}
+          src={A.logoFooter}
+          alt="TrackShift — Build. Compete. Innovate. In association with Plaksha University and TGR Haas F1 Team"
+          width={DIMS.logoFooter.w}
+          height={DIMS.logoFooter.h}
           decoding="async"
-          className="absolute left-[172px] top-[87px] hidden h-[327px] w-[369px] object-fill lg:block"
+          className="absolute left-[172px] top-[87px] hidden h-[327px] w-[369px] object-contain lg:block"
         />
 
         <div className="absolute left-[955px] top-[154px] hidden flex-col gap-[14px] lg:flex">
           {SOCIALS.map(({ label, Icon, href }) => (
             <a key={label} href={href} className="group flex items-center gap-[16px]">
               <Icon />
-              <span className="text-[18px] font-extrabold text-white transition-colors group-hover:text-haas-red">
+              <span className="font-helvetica text-[18px] font-extrabold text-white transition-colors group-hover:text-haas-red">
                 {label}
               </span>
             </a>
           ))}
         </div>
 
-        {/* Legal line — 114:436/437/439, all at 50% opacity. */}
+        {/* Legal line — 114:436/437/439, all at 50% opacity. Privacy policy
+            link (114:438) removed per brand guidelines. */}
         <div className="absolute left-[182px] top-[469px] hidden opacity-50 lg:block">
           <span className="inline-block text-[12px] leading-none text-white">
             <span className="mr-[4px] inline-block h-[12px] w-[12px] rounded-full border border-white text-center leading-[10px]">
               c
             </span>
             <span className="mr-[14px] font-semibold">Trackshift 2O26</span>
-            <span className="font-semibold">All rights reserved.</span>
+            <span className="font-semibold">{redPunct("All rights reserved.")}</span>
           </span>
         </div>
-        <a
-          href="#"
-          className="absolute left-[1168px] top-[469px] hidden text-[12px] font-semibold text-white opacity-50 transition-opacity hover:opacity-100 lg:block"
-        >
-          Privacy policy
-        </a>
 
         {/* Mobile layout. */}
         <div className="flex flex-col items-center px-6 pb-10 pt-14 lg:hidden">
           <img
-            src={A.logo}
-            alt="TrackShift"
-            width={DIMS.logo.w}
-            height={DIMS.logo.h}
+            src={A.logoFooter}
+            alt="TrackShift — Build. Compete. Innovate. In association with Plaksha University and TGR Haas F1 Team"
+            width={DIMS.logoFooter.w}
+            height={DIMS.logoFooter.h}
             decoding="async"
-            className="h-[160px] w-[180px] object-fill"
+            className="h-[160px] w-[180px] object-contain"
           />
           <div className="mt-8 flex w-full max-w-[320px] flex-col gap-4">
             {SOCIALS.map(({ label, Icon, href }) => (
               <a key={label} href={href} className="flex items-center gap-4">
                 <Icon />
-                <span className="text-[16px] font-extrabold text-white">{label}</span>
+                <span className="font-helvetica text-[16px] font-extrabold text-white">{label}</span>
               </a>
             ))}
           </div>
           <p className="mt-10 text-center text-[12px] font-semibold text-white">
-            © Trackshift 2O26 · All rights reserved.
+            {redPunct("© Trackshift 2O26 · All rights reserved.")}
           </p>
-          <a href="#" className="mt-2 text-[12px] font-semibold text-white/70">
-            Privacy policy
-          </a>
         </div>
       </div>
     </footer>
