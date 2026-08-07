@@ -86,14 +86,15 @@ export function Prizes() {
             <p className="text-[clamp(22px,4vw,40px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[155px] lg:mt-0 lg:-translate-x-1/2 lg:text-[40px]">
               Global exposure
             </p>
-            <SpeedStreak
+            {/* In-flow, not `SpeedStreak` — see the Internships note below. */}
+            <svg
               viewBox={VB_BLADE_192}
-              d={P_BLADE_192}
-              delay={0.15}
-              strokeWidth={2}
-              restOpacity={0.5}
-              className="left-1/2 top-full mt-1 -z-10 h-[16px] w-[246px] -translate-x-1/2 lg:hidden"
-            />
+              preserveAspectRatio="none"
+              aria-hidden="true"
+              className="mx-auto mt-1 block h-[16px] w-[70%] max-w-[246px] lg:hidden"
+            >
+              <path d={P_BLADE_192} fill="none" stroke="#D6001C" strokeWidth={2} opacity={0.5} vectorEffect="non-scaling-stroke" />
+            </svg>
             <SpeedStreak
               viewBox={VB_BLADE_558}
               d={P_BLADE_558}
@@ -151,14 +152,17 @@ export function Prizes() {
               <p className="text-[clamp(22px,4vw,32px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[849px] lg:-translate-x-1/2 lg:text-[32px]">
                 Internships
               </p>
-              <SpeedStreak
+              {/* In-flow, not `SpeedStreak` (which is unconditionally
+                  `absolute` and reserves no space) — that let this overlap
+                  the paragraph below it instead of pushing it down. */}
+              <svg
                 viewBox={VB_BLADE_192}
-                d={P_BLADE_192}
-                delay={0.2}
-                strokeWidth={2}
-                restOpacity={0.5}
-                className="left-1/2 top-full mt-1 -z-10 h-[16px] w-[192px] -translate-x-1/2 lg:hidden"
-              />
+                preserveAspectRatio="none"
+                aria-hidden="true"
+                className="mx-auto mt-1 block h-[16px] w-[70%] max-w-[192px] lg:hidden"
+              >
+                <path d={P_BLADE_192} fill="none" stroke="#D6001C" strokeWidth={2} opacity={0.5} vectorEffect="non-scaling-stroke" />
+              </svg>
               <SpeedStreak
                 viewBox={VB_BLADE_317}
                 d={P_BLADE_317}
@@ -176,14 +180,14 @@ export function Prizes() {
               <p className="text-[clamp(22px,4vw,32px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[971px] lg:mt-0 lg:-translate-x-1/2 lg:text-[32px]">
                 all participants get
               </p>
-              <SpeedStreak
+              <svg
                 viewBox={VB_BLADE_292}
-                d={P_BLADE_292}
-                delay={0.25}
-                strokeWidth={2}
-                restOpacity={0.5}
-                className="left-1/2 top-full mt-1 -z-10 h-[19px] w-[292px] -translate-x-1/2 lg:hidden"
-              />
+                preserveAspectRatio="none"
+                aria-hidden="true"
+                className="mx-auto mt-1 block h-[19px] w-[76%] max-w-[292px] lg:hidden"
+              >
+                <path d={P_BLADE_292} fill="none" stroke="#D6001C" strokeWidth={2} opacity={0.5} vectorEffect="non-scaling-stroke" />
+              </svg>
               <SpeedStreak
                 viewBox={VB_BLADE_568}
                 d={P_BLADE_568}
