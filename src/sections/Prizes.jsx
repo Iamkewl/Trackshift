@@ -14,6 +14,10 @@ import {
   VB_HERO_BRACKET,
   P_HERO_BRACKET_M,
   VB_HERO_BRACKET_M,
+  P_BLADE_192,
+  VB_BLADE_192,
+  P_BLADE_292,
+  VB_BLADE_292,
 } from "../components/paths";
 
 /**
@@ -78,17 +82,27 @@ export function Prizes() {
             {redPunct("What’s on the podium")}
           </h2>
 
-          <p className="mt-6 text-[clamp(22px,4vw,40px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[155px] lg:mt-0 lg:-translate-x-1/2 lg:text-[40px]">
-            Global exposure
-          </p>
-          <SpeedStreak
-            viewBox={VB_BLADE_558}
-            d={P_BLADE_558}
-            delay={0.15}
-            strokeWidth={2}
-            restOpacity={0.5}
-            className="left-1/2 top-[175px] -z-10 hidden h-[37px] w-[558px] -translate-x-1/2 lg:block"
-          />
+          <div className="relative mt-6 lg:contents">
+            <p className="text-[clamp(22px,4vw,40px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[155px] lg:mt-0 lg:-translate-x-1/2 lg:text-[40px]">
+              Global exposure
+            </p>
+            <SpeedStreak
+              viewBox={VB_BLADE_192}
+              d={P_BLADE_192}
+              delay={0.15}
+              strokeWidth={2}
+              restOpacity={0.5}
+              className="left-1/2 top-full mt-1 -z-10 h-[16px] w-[246px] -translate-x-1/2 lg:hidden"
+            />
+            <SpeedStreak
+              viewBox={VB_BLADE_558}
+              d={P_BLADE_558}
+              delay={0.15}
+              strokeWidth={2}
+              restOpacity={0.5}
+              className="left-1/2 top-[175px] -z-10 hidden h-[37px] w-[558px] -translate-x-1/2 lg:block"
+            />
+          </div>
 
           <img
             src={A.ukVisitCard}
@@ -133,32 +147,52 @@ export function Prizes() {
           </p>
 
           <div className="mt-12 flex flex-col items-center lg:absolute lg:inset-x-0 lg:top-0 lg:mt-0">
-            <p className="text-[clamp(22px,4vw,32px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[849px] lg:-translate-x-1/2 lg:text-[32px]">
-              Internships
-            </p>
-            <SpeedStreak
-              viewBox={VB_BLADE_317}
-              d={P_BLADE_317}
-              delay={0.2}
-              strokeWidth={2}
-              restOpacity={0.5}
-              className="left-1/2 top-[868px] -z-10 hidden h-[27px] w-[317px] -translate-x-1/2 lg:block"
-            />
+            <div className="relative lg:contents">
+              <p className="text-[clamp(22px,4vw,32px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[849px] lg:-translate-x-1/2 lg:text-[32px]">
+                Internships
+              </p>
+              <SpeedStreak
+                viewBox={VB_BLADE_192}
+                d={P_BLADE_192}
+                delay={0.2}
+                strokeWidth={2}
+                restOpacity={0.5}
+                className="left-1/2 top-full mt-1 -z-10 h-[16px] w-[192px] -translate-x-1/2 lg:hidden"
+              />
+              <SpeedStreak
+                viewBox={VB_BLADE_317}
+                d={P_BLADE_317}
+                delay={0.2}
+                strokeWidth={2}
+                restOpacity={0.5}
+                className="left-1/2 top-[868px] -z-10 hidden h-[27px] w-[317px] -translate-x-1/2 lg:block"
+              />
+            </div>
             <p className="font-helvetica mt-3 max-w-[700px] text-center text-[16px] text-white lg:absolute lg:left-1/2 lg:top-[906px] lg:mt-0 lg:-translate-x-1/2 lg:text-[20px]">
               Internships at Mphasis office on live AI and innovation projects
             </p>
 
-            <p className="mt-10 text-[clamp(22px,4vw,32px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[971px] lg:mt-0 lg:-translate-x-1/2 lg:text-[32px]">
-              all participants get
-            </p>
-            <SpeedStreak
-              viewBox={VB_BLADE_568}
-              d={P_BLADE_568}
-              delay={0.25}
-              strokeWidth={2}
-              restOpacity={0.5}
-              className="left-1/2 top-[990px] -z-10 hidden h-[27px] w-[568px] -translate-x-1/2 lg:block"
-            />
+            <div className="relative mt-10 lg:contents">
+              <p className="text-[clamp(22px,4vw,32px)] font-black uppercase text-white lg:absolute lg:left-1/2 lg:top-[971px] lg:mt-0 lg:-translate-x-1/2 lg:text-[32px]">
+                all participants get
+              </p>
+              <SpeedStreak
+                viewBox={VB_BLADE_292}
+                d={P_BLADE_292}
+                delay={0.25}
+                strokeWidth={2}
+                restOpacity={0.5}
+                className="left-1/2 top-full mt-1 -z-10 h-[19px] w-[292px] -translate-x-1/2 lg:hidden"
+              />
+              <SpeedStreak
+                viewBox={VB_BLADE_568}
+                d={P_BLADE_568}
+                delay={0.25}
+                strokeWidth={2}
+                restOpacity={0.5}
+                className="left-1/2 top-[990px] -z-10 hidden h-[27px] w-[568px] -translate-x-1/2 lg:block"
+              />
+            </div>
             <div className="mt-4 flex w-full flex-col items-center gap-[18px] lg:absolute lg:inset-x-0 lg:top-[1046px] lg:mt-0 lg:gap-[10px]">
               {DETAILS.map((d) => (
                 <p

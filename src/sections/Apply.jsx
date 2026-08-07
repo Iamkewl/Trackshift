@@ -47,13 +47,13 @@ export function Apply() {
           </a>
         </div>
 
-        {/* Mobile stats — reflowed row. */}
+        {/* Mobile stats — stacked, not a row (237:588 `Frame 117`). */}
         <div className="relative z-10 flex flex-col items-center px-6 pb-16 pt-14 lg:hidden">
-          <div className="flex w-full max-w-[420px] items-start justify-between gap-2">
+          <div className="flex flex-col items-center gap-6">
             {STATS.map((s) => (
-              <div key={s.label} className="flex min-w-0 flex-col items-center">
-                <span className="text-[clamp(28px,8vw,40px)] font-black uppercase leading-none text-haas-red">{s.value}</span>
-                <span className="mt-2 text-[clamp(12px,4vw,22px)] font-extrabold uppercase text-white">{s.label}</span>
+              <div key={s.label} className="flex flex-col items-center">
+                <span className="text-[40px] font-black uppercase leading-none text-haas-red">{s.value}</span>
+                <span className="mt-2 text-[22px] font-extrabold uppercase text-white">{s.label}</span>
               </div>
             ))}
           </div>

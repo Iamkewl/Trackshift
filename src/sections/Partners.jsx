@@ -133,23 +133,48 @@ export function Partners() {
           ))}
         </div>
 
-        {/* Mobile — reflowed as a wrap grid; the marks fit rather than crop. */}
-        {/* Mobile — one mark per row. Two-up crushed the wide marks (the
-            Plaksha lock-up carries three lines of fine print), so each gets
-            the full column and is fitted rather than cropped. */}
-        <div className="relative z-10 flex flex-col items-center gap-9 px-6 pb-16 pt-8 lg:hidden">
-          {LOGOS.map((l) => (
-            <img
-              key={l.key}
-              src={l.img}
-              alt={l.alt}
-              width={l.dims.w}
-              height={l.dims.h}
-              loading="lazy"
-              decoding="async"
-              className="h-auto max-h-[76px] w-full max-w-[280px] object-contain"
-            />
-          ))}
+        {/* Mobile (237:326 `Group 22/21/20/23/24/25`) — three rows: Mphasis
+            alone, then TGR + Plaksha side by side, then the three small
+            marks across in one row. Not one-per-row — that read too spaced
+            out next to the reference. */}
+        <div className="relative z-10 flex flex-col items-center gap-8 px-6 pb-16 pt-8 lg:hidden">
+          <img
+            src={LOGOS[0].img}
+            alt={LOGOS[0].alt}
+            width={LOGOS[0].dims.w}
+            height={LOGOS[0].dims.h}
+            loading="lazy"
+            decoding="async"
+            className="h-auto max-h-[84px] w-full max-w-[220px] object-contain"
+          />
+          <div className="flex w-full max-w-[340px] items-center justify-center gap-6">
+            {LOGOS.slice(1, 3).map((l) => (
+              <img
+                key={l.key}
+                src={l.img}
+                alt={l.alt}
+                width={l.dims.w}
+                height={l.dims.h}
+                loading="lazy"
+                decoding="async"
+                className="h-auto max-h-[50px] w-1/2 object-contain"
+              />
+            ))}
+          </div>
+          <div className="flex w-full max-w-[360px] items-center justify-center gap-5">
+            {LOGOS.slice(3, 6).map((l) => (
+              <img
+                key={l.key}
+                src={l.img}
+                alt={l.alt}
+                width={l.dims.w}
+                height={l.dims.h}
+                loading="lazy"
+                decoding="async"
+                className="h-auto max-h-[40px] w-1/3 object-contain"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

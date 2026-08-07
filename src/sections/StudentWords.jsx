@@ -95,9 +95,21 @@ export function StudentWords() {
           </figcaption>
         </figure>
 
-        {/* Mobile card — reflowed. */}
-        <figure className="relative z-10 mx-auto my-8 flex w-[calc(100%-72px)] max-w-[320px] flex-col items-center border-2 border-haas-red px-6 pb-8 pt-8 text-center lg:hidden">
-          <blockquote className="font-helvetica max-w-[659px] whitespace-pre-line text-[16px] font-normal leading-[1.4] text-white">
+        {/* Mobile card (237:537) — no border rail, just the outlined quote
+            mark sitting above the text on plain black. */}
+        <figure className="relative z-10 mx-auto my-8 flex w-[calc(100%-72px)] max-w-[320px] flex-col items-center px-6 text-center lg:hidden">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none self-start font-black leading-none"
+            style={{
+              fontSize: 85,
+              color: "transparent",
+              WebkitTextStroke: "1px #D6001C",
+            }}
+          >
+            &ldquo;
+          </span>
+          <blockquote className="font-helvetica -mt-4 max-w-[659px] whitespace-pre-line text-[16px] font-normal leading-[1.4] text-white">
             {redPunct(slide.quote)}
           </blockquote>
           <p className="mt-8 text-[28px] font-extrabold uppercase leading-none text-white">{slide.name}</p>

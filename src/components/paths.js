@@ -83,3 +83,10 @@ export const VB_BLADE_759 = "0 0 759 63";
  *  the desktop trace. */
 export const P_BLADE_345 = "M 344.022 0.5 L 292.295 38.5 L 1.52542 38.5 L 53.2539 0.5 Z";
 export const VB_BLADE_345 = "0 0 345.5 39";
+
+/** Prizes mobile sub-heading blades (237:266/300/301) — "Global exposure" /
+ *  "Internships" / "all participants get" at mobile scale. */
+export const P_BLADE_192 = "M 190.473 0.5 L 170.023 15.5 L 1.52734 15.5 L 21.9766 0.5 Z";
+export const VB_BLADE_192 = "0 0 192 16";
+export const P_BLADE_292 = "M 290.474 0.5 L 265.945 18.5 L 1.52637 18.5 L 26.0547 0.5 Z";
+export const VB_BLADE_292 = "0 0 292 19";

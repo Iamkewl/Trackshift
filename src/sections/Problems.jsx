@@ -80,9 +80,12 @@ export function Problems() {
         </h2>
         {/* 114:178 — "2o26 grid" is red as a whole phrase, not just its
             punctuation, so it's hardcoded rather than run through
-            `redPunct` (which only reddens stray periods/apostrophes). */}
+            `redPunct` (which only reddens stray periods/apostrophes).
+            Mobile also sizes "off" and "2o26 grid" up relative to the rest
+            of the line — a size accent that desktop doesn't have. */}
         <h3 className="relative z-10 mt-2 max-w-[913px] px-6 text-[clamp(26px,5vw,48px)] font-black uppercase leading-none text-white lg:absolute lg:left-[431px] lg:top-[122px] lg:mt-0 lg:px-0 lg:text-[48px]">
-          Straight off the <span className="text-haas-red">2o26 grid</span>
+          Straight <span className="text-[1.3em] lg:text-[1em]">off</span> the{" "}
+          <span className="text-[1.3em] text-haas-red lg:text-[1em]">2o26 grid</span>
           <span className="text-haas-red">.</span>
         </h3>
         {/* 114:179 — the comma after "problem" is also red in the design. */}
