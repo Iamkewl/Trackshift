@@ -119,16 +119,9 @@ export function Leadership() {
           </div>
         </div>
 
-        {/* Mobile controls — the card no longer fills the column, and these
-            make the sideways swipe discoverable. */}
-        <CarouselNav
-          index={index}
-          count={SLIDES.length}
-          prev={prev}
-          next={next}
-          setIndex={setIndex}
-          className="relative z-10 pb-14"
-        />
+        {/* Mobile controls — the card no longer fills the column, and swipe
+            plus these dashes are the affordance (no arrows on phone). */}
+        <CarouselNav index={index} count={SLIDES.length} setIndex={setIndex} className="relative z-10 pb-14" />
 
         <CaretButton
           dir="left"

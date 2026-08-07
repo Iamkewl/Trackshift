@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { A } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import { HeroGlow } from "../components/Glow";
 import useInView from "../components/useInView";
 import { redPunct } from "../components/RedPunct";
-import { P_BLADE_824, VB_BLADE_824, P_HERO_BRACKET, VB_HERO_BRACKET } from "../components/paths";
+import {
+  P_BLADE_824,
+  VB_BLADE_824,
+  P_HERO_BRACKET,
+  VB_HERO_BRACKET,
+  P_BLADE_345,
+  VB_BLADE_345,
+} from "../components/paths";
 
 const NAV = [
   { label: "tracks", href: "#tracks" },
@@ -20,6 +28,7 @@ const STATS = [
 
 export function Hero() {
   const [ref, live] = useInView(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <section
@@ -32,7 +41,57 @@ export function Hero() {
 
         {/* Nav — logo centred, links flanking, positioned at the design's
             coordinates (they sit outside the 156px gutter at 1440). */}
-        <nav className="relative z-10 flex flex-col items-center gap-[18px] px-6 pt-[28px] lg:absolute lg:inset-x-0 lg:top-0 lg:gap-0 lg:px-0 lg:pt-0">
+        <nav className="relative z-10 lg:absolute lg:inset-x-0 lg:top-0">
+          {/* Mobile top bar (233:88/233:171/233:89) — hamburger left, logo
+              centred; the desktop link row doesn't exist at this size. */}
+          <div className="relative flex items-center justify-center px-6 pt-[24px] lg:hidden">
+            <button
+              type="button"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-expanded={menuOpen}
+              aria-controls="hero-mobile-menu"
+              aria-label="Menu"
+              className="absolute left-6 top-1/2 flex h-8 w-8 -translate-y-1/2 flex-col justify-center gap-[6px]"
+            >
+              <span className={`h-[3px] w-full bg-haas-red transition-transform ${menuOpen ? "translate-y-[9px] rotate-45" : ""}`} />
+              <span className={`h-[3px] w-full bg-haas-red transition-opacity ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`h-[3px] w-full bg-haas-red transition-transform ${menuOpen ? "-translate-y-[9px] -rotate-45" : ""}`} />
+            </button>
+            <img
+              src={A.logo}
+              alt="TrackShift 2026"
+              width={342}
+              height={274}
+              className="h-[56px] w-[70px] object-cover"
+            />
+          </div>
+
+          {/* Collapsible stacked menu (List-r opens this) — grid-rows
+              animates height without a fixed value, same technique as the
+              FAQ accordion. */}
+          <div
+            id="hero-mobile-menu"
+            className="grid transition-[grid-template-rows] duration-300 ease-out lg:hidden"
+            style={{ gridTemplateRows: menuOpen ? "1fr" : "0fr" }}
+          >
+            <div className="overflow-hidden">
+              <ul className="mt-4 flex flex-col divide-y divide-haas-red/40 border-y border-haas-red/40 bg-black text-[15px] font-bold uppercase text-white">
+                {NAV.map((n) => (
+                  <li key={n.label}>
+                    <a
+                      href={n.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-6 py-4 text-center transition-colors hover:text-haas-red"
+                    >
+                      {redPunct(n.label)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Desktop link row + logo. */}
           <a
             href="#tracks"
             className="hidden text-[20px] font-bold uppercase text-white transition-colors hover:text-haas-red lg:absolute lg:left-[188px] lg:top-[67px] lg:block"
@@ -50,7 +109,7 @@ export function Hero() {
             alt="TrackShift 2026"
             width={342}
             height={274}
-            className="h-[110px] w-[137px] object-cover lg:absolute lg:left-1/2 lg:top-[36px] lg:h-[118px] lg:w-[147px] lg:-translate-x-1/2"
+            className="hidden object-cover lg:absolute lg:left-1/2 lg:top-[36px] lg:block lg:h-[118px] lg:w-[147px] lg:-translate-x-1/2"
           />
           <a
             href="#prizes"
@@ -64,23 +123,6 @@ export function Hero() {
           >
             {redPunct("trackshift ‘25")}
           </a>
-          {/* Mobile nav — a 2×2 grid, not a row. Four uppercase labels in one
-              line do not fit a phone ("TRACKSHIFT '25" alone is half the
-              width), so they collided and wrapped mid-word. Each cell is its
-              own tap target with a divider, which also gets them well clear of
-              the 44px minimum. */}
-          <ul className="grid w-full max-w-[380px] grid-cols-2 gap-px overflow-hidden bg-white/15 text-[13px] font-bold uppercase text-white lg:hidden">
-            {NAV.map((n) => (
-              <li key={n.label} className="bg-black">
-                <a
-                  href={n.href}
-                  className="flex min-h-[44px] items-center justify-center px-2 text-center leading-tight transition-colors hover:text-haas-red"
-                >
-                  {redPunct(n.label)}
-                </a>
-              </li>
-            ))}
-          </ul>
         </nav>
 
         {/* Copy block — centred stack, absolute at the design's y at lg.
@@ -112,7 +154,26 @@ export function Hero() {
           </div>
 
           {/* 5o teams / 3 problems / 24 hours */}
-          <div className="mt-[36px] flex w-full max-w-[708px] items-start justify-between gap-2 lg:mt-[93px] lg:gap-0">
+          <div className="relative mt-[36px] flex w-full max-w-[708px] items-start justify-between gap-2 lg:mt-[93px] lg:gap-0">
+            {/* Mobile flanking blades (233:150, `Group 106`) — desktop's pair
+                lives further down, off-canvas at the full 1440 width; mobile
+                needs its own smaller instances bleeding off this row. */}
+            <SpeedStreak
+              viewBox={VB_BLADE_345}
+              d={P_BLADE_345}
+              delay={0.15}
+              strokeWidth={1}
+              restOpacity={0.5}
+              className="left-[-90px] top-1/2 -z-10 h-[24px] w-[210px] -translate-y-1/2 lg:hidden"
+            />
+            <SpeedStreak
+              viewBox={VB_BLADE_345}
+              d={P_BLADE_345}
+              delay={0.25}
+              strokeWidth={1}
+              restOpacity={0.5}
+              className="right-[-90px] top-1/2 -z-10 h-[24px] w-[210px] -translate-y-1/2 scale-x-[-1] lg:hidden"
+            />
             {STATS.map((s) => (
               <div key={s.label} className="flex min-w-0 flex-col items-center">
                 <span className="text-[clamp(30px,7vw,58px)] font-black uppercase leading-none text-haas-red lg:text-[58.34px]">

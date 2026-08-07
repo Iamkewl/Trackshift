@@ -2,7 +2,7 @@ import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import useInView from "../components/useInView";
 import { redPunct } from "../components/RedPunct";
-import { P_BLADE_1171, VB_BLADE_1171 } from "../components/paths";
+import { P_BLADE_1171, VB_BLADE_1171, P_BLADE_759, VB_BLADE_759 } from "../components/paths";
 
 /**
  * `about` (114:165) — 1440×1012, page y 1174.
@@ -31,8 +31,24 @@ export function About() {
       className={`relative isolate overflow-hidden bg-black ${live ? "ts-live" : ""}`}
     >
       <div className="relative mx-auto max-w-[1440px] lg:min-h-[1023px]">
-        {/* Brand guideline: every section but the hero is solid black on
-            mobile, so the wash-plate backdrop only ever shows at `lg`. */}
+        {/* Mobile car (233:181, `image 33` 114:167) — a single crop of the
+            Mphasis-liveried car shot, faded to black at the bottom so the
+            copy band below reads clean. Desktop keeps the separate
+            car+wash layers. */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[430px] overflow-hidden bg-black lg:hidden">
+          <img
+            src={A.aboutBg}
+            alt=""
+            width={DIMS.aboutBg.w}
+            height={DIMS.aboutBg.h}
+            decoding="async"
+            className="h-full w-full object-cover object-top"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to bottom, transparent 35%, black 92%)" }}
+          />
+        </div>
 
         {/*
           Paint order matters and is easy to get backwards: in the Figma
@@ -78,6 +94,16 @@ export function About() {
           strokeWidth={3}
           restOpacity={0.5}
           className="left-[-518px] top-[90px] -z-10 hidden h-[97px] w-[1171px] lg:block"
+        />
+        {/* Mobile heading blade (233:175) — bleeds off both edges of the
+            390px frame, so it's shifted left rather than centred. */}
+        <SpeedStreak
+          viewBox={VB_BLADE_759}
+          d={P_BLADE_759}
+          delay={0.1}
+          strokeWidth={2}
+          restOpacity={0.5}
+          className="left-[-416px] top-[74px] -z-10 h-[63px] w-[759px] lg:hidden"
         />
 
         <h2 className="relative z-10 px-6 pt-10 text-[32px] font-black uppercase leading-[0.95] text-white lg:absolute lg:left-[156px] lg:top-[63px] lg:w-[378px] lg:px-0 lg:pt-0 lg:text-[48px] lg:leading-[48px]">

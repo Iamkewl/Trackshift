@@ -1,31 +1,24 @@
-import { CaretButton } from "./Caret";
-
 /**
- * Mobile carousel controls. On a phone the card fills the column, so nothing
- * signals that there is anything to swipe to — these arrows plus the dot
- * count are the affordance. Desktop keeps the design's own carets out at the
- * section edges, so this is `lg:hidden`.
+ * Mobile carousel controls. Figma's mobile carousels (237:537 `student
+ * words`) carry no arrow affordance at all — five red dashes (`Rectangle
+ * 29–33`, the same 33×5 shape as the Timeline spine caps), swipe is the only
+ * interaction. Desktop keeps its own carets out at the section edges, so
+ * this is `lg:hidden`.
  */
-export function CarouselNav({ index, count, prev, next, setIndex, className = "" }) {
+export function CarouselNav({ index, count, setIndex, className = "" }) {
   if (count < 2) return null;
   return (
-    <div className={`flex items-center justify-center gap-5 lg:hidden ${className}`}>
-      <CaretButton dir="left" onClick={prev} label="Previous" />
-      <div className="flex items-center gap-[7px]">
-        {Array.from({ length: count }, (_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => setIndex(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            aria-current={i === index || undefined}
-            className={`h-[7px] rounded-full transition-all ${
-              i === index ? "w-[20px] bg-haas-red" : "w-[7px] bg-white/35"
-            }`}
-          />
-        ))}
-      </div>
-      <CaretButton dir="right" onClick={next} label="Next" />
+    <div className={`flex items-center justify-center gap-[10px] lg:hidden ${className}`}>
+      {Array.from({ length: count }, (_, i) => (
+        <button
+          key={i}
+          type="button"
+          onClick={() => setIndex(i)}
+          aria-label={`Go to slide ${i + 1}`}
+          aria-current={i === index || undefined}
+          className={`h-[5px] w-[33px] transition-colors ${i === index ? "bg-haas-red" : "bg-white/30"}`}
+        />
+      ))}
     </div>
   );
 }

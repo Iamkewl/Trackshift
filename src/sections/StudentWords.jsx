@@ -105,14 +105,7 @@ export function StudentWords() {
         </figure>
 
         {/* Mobile controls — see Leadership. */}
-        <CarouselNav
-          index={index}
-          count={SLIDES.length}
-          prev={prev}
-          next={next}
-          setIndex={setIndex}
-          className="relative z-10 pb-14"
-        />
+        <CarouselNav index={index} count={SLIDES.length} setIndex={setIndex} className="relative z-10 pb-14" />
 
         <CaretButton
           dir="left"

@@ -12,6 +12,8 @@ import {
   VB_BLADE_568,
   P_HERO_BRACKET,
   VB_HERO_BRACKET,
+  P_HERO_BRACKET_M,
+  VB_HERO_BRACKET_M,
 } from "../components/paths";
 
 /**
@@ -51,8 +53,17 @@ export function Prizes() {
           style={{ left: -70, top: 653, width: 1579, height: 763 }}
         />
 
-        {/* `Rectangle 24` (114:220) — same open bracket as Partners/Lookback/
-            the Hero CTA, framing the section title. */}
+        {/* `Rectangle 24` (114:220 desktop / 237:260 mobile) — same open
+            bracket as Partners/Lookback/the Hero CTA, framing the section
+            title at both sizes. */}
+        <SpeedStreak
+          viewBox={VB_HERO_BRACKET_M}
+          d={P_HERO_BRACKET_M}
+          delay={0.1}
+          strokeWidth={1.4}
+          restOpacity={0.7}
+          className="left-[-29px] top-[61px] -z-10 h-[45px] w-[449px] lg:hidden"
+        />
         <SpeedStreak
           viewBox={VB_HERO_BRACKET}
           d={P_HERO_BRACKET}

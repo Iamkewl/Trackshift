@@ -2,7 +2,7 @@ import { A, DIMS } from "../assets";
 import { PartnerGlow } from "../components/Glow";
 import SpeedStreak from "../components/SpeedStreak";
 import useInView from "../components/useInView";
-import { P_HERO_BRACKET, VB_HERO_BRACKET } from "../components/paths";
+import { P_HERO_BRACKET, VB_HERO_BRACKET, P_HERO_BRACKET_M, VB_HERO_BRACKET_M } from "../components/paths";
 
 /**
  * `Partners` (114:268) — 1440×820, page y 5026, on the `image 67` plate.
@@ -91,8 +91,9 @@ export function Partners() {
       <div className="relative mx-auto max-w-[1440px] lg:min-h-[831px]">
         <PartnerGlow className="hidden lg:block" />
 
-        {/* `Rectangle 24` (114:269) — same open bracket as the Hero CTA and
-            Lookback heading, framing the section title. */}
+        {/* `Rectangle 24` (114:269 desktop / 237:342 mobile) — same open
+            bracket as the Hero CTA and Lookback heading, framing the section
+            title at both sizes. */}
         <SpeedStreak
           viewBox={VB_HERO_BRACKET}
           d={P_HERO_BRACKET}
@@ -100,6 +101,14 @@ export function Partners() {
           strokeWidth={1.4}
           restOpacity={0.7}
           className="left-1/2 top-[89px] -z-10 hidden h-[150px] w-[1567px] -translate-x-1/2 lg:block"
+        />
+        <SpeedStreak
+          viewBox={VB_HERO_BRACKET_M}
+          d={P_HERO_BRACKET_M}
+          delay={0.1}
+          strokeWidth={1.4}
+          restOpacity={0.7}
+          className="left-[-29px] top-[40px] -z-10 h-[45px] w-[449px] lg:hidden"
         />
 
         <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black uppercase text-white lg:absolute lg:inset-x-0 lg:top-[63px] lg:px-0 lg:pt-0 lg:text-[48px]">

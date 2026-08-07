@@ -64,3 +64,22 @@ export const VB_TL_DASH = "0 0 33 5";
  *  diagonal legs and the flat span between them. */
 export const P_HERO_BRACKET = "M 1567.3 150.5 L 1363 0.5 L 204.595 0.5 L 0.295914 150.5";
 export const VB_HERO_BRACKET = "0 0 1567.59 150.903";
+
+/** Mobile version of the same open bracket (233:154 / 237:260 / 237:303 /
+ *  237:578, all ~450×45) — legs are relatively less steep than the desktop
+ *  1567-wide version, so it's its own trace rather than a CSS reflow of
+ *  `P_HERO_BRACKET`. */
+export const P_HERO_BRACKET_M = "M 449.592 44 L 391.053 1 L 59.1307 1 L 0.592005 44";
+export const VB_HERO_BRACKET_M = "0 0 450.184 44.8059";
+
+/** About mobile heading `Rectangle 22` (233:175) — a single wide closed
+ *  parallelogram behind "About trackshift", the same blade family as
+ *  `P_BLADE_824` but its own trace at 759×63. */
+export const P_BLADE_759 = "M 755.967 1 L 673.517 62 H 3.0332 L 85.4834 1 H 755.967 Z";
+export const VB_BLADE_759 = "0 0 759 63";
+
+/** Hero mobile `Group 106` (233:150) — the same flanking-blade pair as
+ *  `P_BLADE_824`, scaled to a 345×39 mobile blade instead of a CSS reflow of
+ *  the desktop trace. */
+export const P_BLADE_345 = "M 344.022 0.5 L 292.295 38.5 L 1.52542 38.5 L 53.2539 0.5 Z";
+export const VB_BLADE_345 = "0 0 345.5 39";

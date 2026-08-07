@@ -1,7 +1,14 @@
 import SpeedStreak from "../components/SpeedStreak";
 import { CheckerGlow, SoftMask } from "../components/Glow";
 import useInView from "../components/useInView";
-import { P_TL_DASH, VB_TL_DASH } from "../components/paths";
+import {
+  P_TL_DASH,
+  VB_TL_DASH,
+  P_HERO_BRACKET,
+  VB_HERO_BRACKET,
+  P_HERO_BRACKET_M,
+  VB_HERO_BRACKET_M,
+} from "../components/paths";
 
 /**
  * `Timeline` (114:250) — 1440×471, page y 4544. A two-column day schedule
@@ -44,6 +51,25 @@ export function Timeline() {
         <SoftMask
           className="-z-10 hidden lg:block"
           style={{ left: -70, top: -585, width: 1579, height: 763 }}
+        />
+
+        {/* `Rectangle 24` (114:251 desktop / 237:303 mobile) — same open
+            bracket as Prizes/Partners/Lookback/the Hero CTA. */}
+        <SpeedStreak
+          viewBox={VB_HERO_BRACKET_M}
+          d={P_HERO_BRACKET_M}
+          delay={0.1}
+          strokeWidth={1.4}
+          restOpacity={0.7}
+          className="left-[-29px] top-[83px] -z-10 h-[45px] w-[449px] lg:hidden"
+        />
+        <SpeedStreak
+          viewBox={VB_HERO_BRACKET}
+          d={P_HERO_BRACKET}
+          delay={0.1}
+          strokeWidth={1.4}
+          restOpacity={0.7}
+          className="left-1/2 top-[89px] -z-10 hidden h-[150px] w-[1567px] -translate-x-1/2 lg:block"
         />
 
         <h2 className="relative z-10 px-6 pt-10 text-center text-[clamp(26px,5vw,48px)] font-black uppercase text-white lg:absolute lg:inset-x-0 lg:top-[63px] lg:px-0 lg:pt-0 lg:text-[48px]">
