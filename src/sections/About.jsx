@@ -1,3 +1,4 @@
+import React from "react";
 import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import useInView from "../components/useInView";
@@ -111,20 +112,20 @@ export function About() {
         </h2>
 
         <div className="relative z-10 flex flex-col gap-5 px-6 pb-14 pt-6 lg:absolute lg:inset-x-0 lg:top-0 lg:gap-0 lg:px-0 lg:py-0">
-          <h3 className="max-w-[541px] text-[24px] font-extrabold uppercase leading-[1.25] text-white lg:absolute lg:left-[156px] lg:top-[636px] lg:text-[32px]">
+          <h3 className="w-full max-w-full sm:max-w-[541px] text-[24px] font-extrabold uppercase leading-[1.25] text-white lg:absolute lg:left-[156px] lg:top-[636px] lg:text-[32px]">
             {/* Both full stops are red in the design (114:171). */}
             Built for the grid<span className="text-haas-red">.</span>{" "}
             Written into the future<span className="text-haas-red">.</span>
           </h3>
 
-          <p className="max-w-[541px] text-[14px] font-medium leading-[1.5] text-white lg:absolute lg:left-[829px] lg:top-[636px] lg:max-w-[360px] lg:text-[16px] lg:leading-[1.375]">
+          <p className="w-full max-w-full sm:max-w-[541px] text-[14px] font-medium leading-[1.5] text-white lg:absolute lg:left-[829px] lg:top-[636px] lg:max-w-[360px] lg:text-[16px] lg:leading-[1.375]">
             {redPunct(P1)}
           </p>
-          <p className="max-w-[541px] text-[14px] font-medium leading-[1.5] text-white lg:absolute lg:left-[829px] lg:top-[805px] lg:max-w-[360px] lg:text-[16px] lg:leading-[1.375]">
+          <p className="w-full max-w-full sm:max-w-[541px] text-[14px] font-medium leading-[1.5] text-white lg:absolute lg:left-[829px] lg:top-[805px] lg:max-w-[360px] lg:text-[16px] lg:leading-[1.375]">
             {redPunct(P2)}
           </p>
 
-          <p className="max-w-[444px] text-[20px] font-bold uppercase leading-[1.3] text-haas-red lg:absolute lg:left-[266px] lg:top-[838px] lg:w-[444px] lg:max-w-[444px] lg:text-right lg:text-[32px] lg:leading-[1.25]">
+          <p className="w-full max-w-full sm:max-w-[444px] text-[20px] font-bold uppercase leading-[1.3] text-haas-red lg:absolute lg:left-[266px] lg:top-[838px] lg:w-[444px] lg:max-w-[444px] lg:text-right lg:text-[32px] lg:leading-[1.25]">
             {redPunct(TAG)}
           </p>
         </div>
