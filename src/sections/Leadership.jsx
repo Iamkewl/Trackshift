@@ -1,3 +1,4 @@
+import React from "react";
 import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import { PartnerGlow } from "../components/Glow";
@@ -92,7 +93,7 @@ export function Leadership() {
 
         <div
           key={index}
-          className="ts-slide relative z-10 flex flex-col gap-8 px-6 pb-16 pt-8 lg:absolute lg:inset-x-0 lg:top-0 lg:flex-row lg:gap-0 lg:px-0 lg:pb-0 lg:pt-0"
+          className="ts-slide relative z-10 flex flex-col gap-8 px-6 pb-12 pt-8 lg:absolute lg:inset-x-0 lg:top-0 lg:flex-row lg:gap-0 lg:px-0 lg:pb-0 lg:pt-0"
         >
           <img
             src={slide.photo}
@@ -104,24 +105,22 @@ export function Leadership() {
             className="w-full max-w-[300px] self-center object-cover lg:absolute lg:left-[232px] lg:top-[224px] lg:w-[454px] lg:max-w-none lg:self-auto"
           />
 
-          <div className="flex flex-col lg:absolute lg:left-[730px] lg:top-[274px] lg:max-w-[488px]">
-            <p className="whitespace-pre-line text-[16px] font-medium leading-[1.4] text-white lg:leading-[1.25]">
+          <div className="flex flex-col items-start lg:absolute lg:left-[730px] lg:top-[274px] lg:max-w-[488px]">
+            <p className="whitespace-pre-line text-[15px] sm:text-[16px] font-medium leading-[1.4] text-white lg:leading-[1.25]">
               {redPunct(slide.quote)}
             </p>
-            {/* `Frame 31` (114:366) — both lines are centred in their own
-                boxes (206 / 185 wide) starting at the column's left edge. */}
-            <p className="mt-8 text-[30px] font-extrabold uppercase leading-none text-white lg:mt-[52px] lg:w-[206px] lg:text-center lg:leading-[38px]">
+            {/* `Frame 31` (114:366) — centered in box on desktop */}
+            <p className="mt-6 sm:mt-8 text-[24px] sm:text-[30px] font-extrabold uppercase leading-none text-white lg:mt-[52px] lg:w-[206px] lg:text-center lg:leading-[38px]">
               {slide.name}
             </p>
-            <p className="mt-2 text-[16px] font-medium text-white/80 lg:mt-[5px] lg:w-[185px] lg:text-center">
+            <p className="mt-2 text-[14px] sm:text-[16px] font-medium text-white/80 lg:mt-[5px] lg:w-[185px] lg:text-center">
               {slide.role}
             </p>
           </div>
         </div>
 
-        {/* Mobile controls — the card no longer fills the column, and swipe
-            plus these dashes are the affordance (no arrows on phone). */}
-        <CarouselNav index={index} count={SLIDES.length} setIndex={setIndex} className="relative z-10 pb-14" />
+        {/* Mobile controls — swipe plus dashes are the affordance */}
+        <CarouselNav index={index} count={SLIDES.length} setIndex={setIndex} className="relative z-10 pb-14 lg:pb-0" />
 
         <CaretButton
           dir="left"
