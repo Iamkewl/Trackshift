@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import SpeedStreak from "../components/SpeedStreak";
 import Caret from "../components/Caret";
 import useInView from "../components/useInView";
@@ -58,7 +58,7 @@ function FaqItem({ faq, id }) {
         <span>{redPunct(faq.q)}</span>
         <Caret
           dir="down"
-          className={`h-[32px] w-[32px] shrink-0 opacity-90 transition-transform duration-300 ${
+          className={`h-[28px] w-[28px] sm:h-[32px] sm:w-[32px] shrink-0 opacity-90 transition-transform duration-300 ${
             open ? "rotate-180" : ""
           }`}
         />
@@ -70,7 +70,7 @@ function FaqItem({ faq, id }) {
         style={{ gridTemplateRows: open ? "1fr" : "0fr", opacity: open ? 1 : 0 }}
       >
         <div className="overflow-hidden">
-          <p className="font-helvetica pt-[14px] text-[15px] font-normal leading-[1.4] text-white lg:text-[20px] lg:leading-[1.25]">
+          <p className="font-helvetica pt-[12px] sm:pt-[14px] text-[14px] sm:text-[15px] font-normal leading-[1.4] text-white/90 lg:text-[20px] lg:leading-[1.25]">
             {redPunct(faq.a)}
           </p>
         </div>
@@ -101,13 +101,13 @@ export function FAQ() {
           FAQs
         </h2>
 
-        <div className="relative z-10 grid grid-cols-1 gap-10 px-6 pb-16 pt-8 lg:grid-cols-2 lg:gap-[99px] lg:px-[159px] lg:pb-0 lg:pt-[212px]">
-          <div className="flex flex-col gap-9 lg:gap-[25px]">
+        <div className="relative z-10 grid grid-cols-1 gap-8 px-6 pb-16 pt-8 lg:grid-cols-2 lg:gap-[99px] lg:px-[159px] lg:pb-0 lg:pt-[212px]">
+          <div className="flex flex-col gap-6 sm:gap-8 lg:gap-[25px]">
             {LEFT.map((f, i) => (
               <FaqItem key={f.q} faq={f} id={`faq-l-${i}`} />
             ))}
           </div>
-          <div className="flex flex-col gap-9 lg:gap-[25px]">
+          <div className="flex flex-col gap-6 sm:gap-8 lg:gap-[25px]">
             {RIGHT.map((f, i) => (
               <FaqItem key={f.q} faq={f} id={`faq-r-${i}`} />
             ))}
