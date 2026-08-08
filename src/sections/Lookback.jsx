@@ -1,3 +1,4 @@
+import React from "react";
 import { A, DIMS } from "../assets";
 import { LookbackGlow } from "../components/Glow";
 import SpeedStreak from "../components/SpeedStreak";
@@ -72,8 +73,8 @@ export function Lookback() {
           </a>
         </div>
 
-        {/* Mobile — same idea, fluid. */}
-        <div className="relative z-10 mx-6 my-8 overflow-hidden lg:hidden" style={{ background: "#2D2D2D" }}>
+        {/* Mobile — fluid & centered. */}
+        <div className="relative z-10 mx-6 my-8 max-w-md sm:max-w-xl sm:mx-auto overflow-hidden rounded-lg lg:hidden" style={{ background: "#2D2D2D" }}>
           <img
             src={A.videoPoster}
             alt="TrackShift 2025 aftermovie"
@@ -85,7 +86,7 @@ export function Lookback() {
           />
           <a
             href="#apply"
-            className="flex h-[60px] items-center justify-center bg-haas-red text-[28px] font-extrabold uppercase text-white"
+            className="flex h-[56px] sm:h-[60px] items-center justify-center bg-haas-red text-[22px] sm:text-[28px] font-extrabold uppercase text-white transition-colors hover:bg-haas-red/90"
           >
             play video
           </a>
