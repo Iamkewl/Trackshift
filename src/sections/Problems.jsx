@@ -1,3 +1,4 @@
+import React from "react";
 import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import { ProblemsGlow } from "../components/Glow";
@@ -75,7 +76,7 @@ export function Problems() {
           className="left-[340px] top-[83px] -z-10 hidden h-[67px] w-[713px] lg:block"
         />
 
-        <h2 className="relative z-10 px-6 pt-10 text-right text-[clamp(26px,5vw,48px)] font-black uppercase leading-none text-white lg:absolute lg:left-[218px] lg:top-[63px] lg:w-[532px] lg:px-0 lg:pt-0 lg:text-[48px]">
+        <h2 className="relative z-10 px-6 pt-10 text-left text-[clamp(26px,5vw,48px)] font-black uppercase leading-none text-white sm:text-center lg:absolute lg:left-[218px] lg:top-[63px] lg:w-[532px] lg:px-0 lg:pt-0 lg:text-right lg:text-[48px]">
           {redPunct("Three problems.")}
         </h2>
         {/* 114:178 — "2o26 grid" is red as a whole phrase, not just its
@@ -83,13 +84,13 @@ export function Problems() {
             `redPunct` (which only reddens stray periods/apostrophes).
             Mobile also sizes "off" and "2o26 grid" up relative to the rest
             of the line — a size accent that desktop doesn't have. */}
-        <h3 className="relative z-10 mt-2 max-w-[913px] px-6 text-[clamp(26px,5vw,48px)] font-black uppercase leading-none text-white lg:absolute lg:left-[431px] lg:top-[122px] lg:mt-0 lg:px-0 lg:text-[48px]">
+        <h3 className="relative z-10 mt-2 max-w-[913px] px-6 text-left text-[clamp(26px,5vw,48px)] font-black uppercase leading-none text-white sm:text-center lg:absolute lg:left-[431px] lg:top-[122px] lg:mt-0 lg:px-0 lg:text-left lg:text-[48px]">
           Straight <span className="text-[1.3em] lg:text-[1em]">off</span> the{" "}
           <span className="text-[1.3em] text-haas-red lg:text-[1em]">2o26 grid</span>
           <span className="text-haas-red">.</span>
         </h3>
         {/* 114:179 — the comma after "problem" is also red in the design. */}
-        <p className="relative z-10 mt-3 max-w-[839px] px-6 text-center text-[clamp(18px,3vw,28px)] font-bold uppercase text-white lg:absolute lg:left-[301px] lg:top-[224px] lg:mt-0 lg:px-0 lg:text-[28px]">
+        <p className="relative z-10 mt-3 max-w-[839px] px-6 text-left text-[clamp(18px,3vw,28px)] font-bold uppercase text-white sm:text-center lg:absolute lg:left-[301px] lg:top-[224px] lg:mt-0 lg:px-0 lg:text-[28px]">
           Every problem<span className="text-haas-red">,</span> more than one right answer
           <span className="text-haas-red">.</span>
         </p>
@@ -101,7 +102,7 @@ export function Problems() {
               // The 24px inter-card gap is the design's 1440 geometry, so it
               // must not apply to the stacked mobile column — an inline
               // marginLeft did, and pushed cards 2 and 3 off the right edge.
-              className={`flex w-full max-w-[400px] flex-col lg:max-w-[360px] ${
+              className={`flex w-full max-w-[400px] mx-auto lg:mx-0 flex-col lg:max-w-[360px] ${
                 i > 0 ? "lg:ml-[24px]" : ""
               }`}
             >
@@ -134,7 +135,7 @@ export function Problems() {
                 {/* `Frame 21` — 261×52, 3px red outline. */}
                 <a
                   href="#apply"
-                  className="mt-[37px] flex h-[52px] w-[261px] items-center justify-center border-[3px] border-haas-red text-[16px] font-extrabold uppercase text-white transition-colors hover:text-haas-red"
+                  className="mt-[37px] flex h-[52px] w-[261px] max-w-full items-center justify-center border-[3px] border-haas-red text-[16px] font-extrabold uppercase text-white transition-colors hover:text-haas-red"
                 >
                   Read the problem →
                 </a>
