@@ -1,3 +1,4 @@
+import React from "react";
 import SpeedStreak from "../components/SpeedStreak";
 import { CheckerGlow, SoftMask } from "../components/Glow";
 import useInView from "../components/useInView";
@@ -98,13 +99,13 @@ export function Timeline() {
           className="left-1/2 top-[359px] -z-10 hidden h-[5px] w-[33px] -translate-x-1/2 lg:block"
         />
 
-        {/* Mobile: stacked day cards. */}
-        <div className="relative z-10 flex flex-col gap-10 px-6 pb-16 pt-8 lg:hidden">
-          <DayBlock num="o1" date="September 12" align="end" items={DAY1} />
-          <DayBlock num="o2" date="September 13" align="start" items={DAY2} />
+        {/* Mobile: stacked day cards aligned cleanly to the left */}
+        <div className="relative z-10 flex flex-col gap-10 px-6 pb-16 pt-8 lg:hidden max-w-lg mx-auto">
+          <DayBlock num="o1" date="September 12" items={DAY1} />
+          <DayBlock num="o2" date="September 13" items={DAY2} />
         </div>
 
-        {/* Desktop: the two columns at the design's coordinates. */}
+        {/* Desktop: the two columns at the design's exact coordinates. */}
         <div className="hidden lg:absolute lg:left-[179px] lg:top-[188px] lg:flex lg:max-w-[509px] lg:flex-col lg:items-end lg:text-right">
           <p className="text-[32px] font-black uppercase leading-[40px] text-haas-red">
             <span className="opacity-50">Day</span> o1{" "}
@@ -130,21 +131,20 @@ export function Timeline() {
   );
 }
 
-function DayBlock({ num, date, align, items }) {
+function DayBlock({ num, date, items }) {
   return (
-    <div className={`flex flex-col ${align === "end" ? "items-end text-right" : "items-start text-left"}`}>
-      <p className="text-[26px] font-black uppercase leading-none text-haas-red">
+    <div className="flex flex-col items-start text-left border-l-2 border-haas-red/80 pl-4 py-1">
+      <p className="text-[24px] font-black uppercase leading-none text-haas-red">
         <span className="opacity-50">Day</span> {num}{" "}
         <span className="opacity-50">//</span>{" "}
         <span className="text-white">{date}</span>
       </p>
-      <ul
-        className={`mt-5 flex flex-col gap-[10px] text-[14px] font-medium leading-[1.35] text-white ${
-          align === "end" ? "items-end" : "items-start"
-        }`}
-      >
+      <ul className="mt-4 flex flex-col gap-[8px] text-[14px] font-medium leading-[1.35] text-white items-start">
         {items.map((d) => (
-          <li key={d}>{d}</li>
+          <li key={d} className="relative flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-haas-red shrink-0" />
+            <span>{d}</span>
+          </li>
         ))}
       </ul>
     </div>
