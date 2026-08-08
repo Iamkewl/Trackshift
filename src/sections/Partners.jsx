@@ -1,3 +1,4 @@
+import React from "react";
 import { A, DIMS } from "../assets";
 import { PartnerGlow } from "../components/Glow";
 import SpeedStreak from "../components/SpeedStreak";
@@ -135,8 +136,7 @@ export function Partners() {
 
         {/* Mobile (237:326 `Group 22/21/20/23/24/25`) — three rows: Mphasis
             alone, then TGR + Plaksha side by side, then the three small
-            marks across in one row. Not one-per-row — that read too spaced
-            out next to the reference. */}
+            marks across in one row. */}
         <div className="relative z-10 flex flex-col items-center gap-8 px-6 pb-16 pt-8 lg:hidden">
           <img
             src={LOGOS[0].img}
@@ -161,7 +161,7 @@ export function Partners() {
               />
             ))}
           </div>
-          <div className="flex w-full max-w-[360px] items-center justify-center gap-5">
+          <div className="flex flex-wrap w-full max-w-[360px] items-center justify-center gap-4 sm:gap-5">
             {LOGOS.slice(3, 6).map((l) => (
               <img
                 key={l.key}
@@ -171,7 +171,7 @@ export function Partners() {
                 height={l.dims.h}
                 loading="lazy"
                 decoding="async"
-                className="h-auto max-h-[40px] w-1/3 object-contain"
+                className="h-auto max-h-[36px] sm:max-h-[40px] w-1/3 min-w-[80px] object-contain"
               />
             ))}
           </div>
