@@ -1,3 +1,4 @@
+import React from "react";
 import { LookbackGlow } from "../components/Glow";
 import useInView from "../components/useInView";
 import { redPunct } from "../components/RedPunct";
@@ -26,6 +27,7 @@ export function Apply() {
       <div className="relative mx-auto max-w-[1440px] lg:min-h-[478px]">
         {/* `image 68` runs past the Lookback clip into this section. */}
         <LookbackGlow className="hidden lg:block" f={-1117} />
+
         {/* Desktop stats — absolute at the design's coordinates. */}
         <div className="relative z-10 hidden lg:block">
           {STATS.map((s) => (
@@ -47,22 +49,22 @@ export function Apply() {
           </a>
         </div>
 
-        {/* Mobile stats — stacked, not a row (237:588 `Frame 117`). */}
-        <div className="relative z-10 flex flex-col items-center px-6 pb-16 pt-14 lg:hidden">
-          <div className="flex flex-col items-center gap-6">
+        {/* Mobile stats — responsive stack layout */}
+        <div className="relative z-10 flex flex-col items-center px-6 pb-16 pt-12 lg:hidden">
+          <div className="flex flex-row flex-wrap justify-center items-center gap-8 sm:gap-12">
             {STATS.map((s) => (
-              <div key={s.label} className="flex flex-col items-center">
-                <span className="text-[40px] font-black uppercase leading-none text-haas-red">{s.value}</span>
-                <span className="mt-2 text-[22px] font-extrabold uppercase text-white">{s.label}</span>
+              <div key={s.label} className="flex flex-col items-center min-w-[90px]">
+                <span className="text-[36px] sm:text-[40px] font-black uppercase leading-none text-haas-red">{s.value}</span>
+                <span className="mt-1.5 text-[18px] sm:text-[22px] font-extrabold uppercase text-white">{s.label}</span>
               </div>
             ))}
           </div>
-          <p className="font-helvetica mt-10 text-center text-[clamp(17px,5vw,24px)] text-white">
+          <p className="font-helvetica mt-8 text-center text-[clamp(16px,4vw,22px)] text-white">
             {redPunct("Applications close 22 August.")}
           </p>
           <a
             href="#apply"
-            className="mt-8 flex h-[64px] w-full max-w-[299px] items-center justify-center bg-haas-red text-[30px] font-extrabold uppercase text-white"
+            className="mt-6 flex h-[60px] sm:h-[64px] w-full max-w-[299px] items-center justify-center bg-haas-red text-[26px] sm:text-[30px] font-extrabold uppercase text-white transition-transform hover:scale-[1.02]"
           >
             Apply now
           </a>
