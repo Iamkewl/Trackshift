@@ -1,3 +1,4 @@
+import React from "react";
 import { A, DIMS } from "../assets";
 import useInView from "../components/useInView";
 import { redPunct } from "../components/RedPunct";
@@ -125,8 +126,7 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Legal line — 114:436/437/439, all at 50% opacity. Privacy policy
-            link (114:438) removed per brand guidelines. */}
+        {/* Legal line — 114:436/437/439, all at 50% opacity. */}
         <div className="absolute left-[182px] top-[469px] hidden opacity-50 lg:block">
           <span className="inline-block text-[12px] leading-none text-white">
             <span className="mr-[4px] inline-block h-[12px] w-[12px] rounded-full border border-white text-center leading-[10px]">
@@ -147,15 +147,17 @@ export function Footer() {
             decoding="async"
             className="h-[160px] w-[180px] object-contain"
           />
-          <div className="mt-8 flex w-full max-w-[320px] flex-col gap-4">
+          <div className="mt-8 flex w-full max-w-[280px] sm:max-w-[320px] mx-auto flex-col gap-4">
             {SOCIALS.map(({ label, Icon, href }) => (
-              <a key={label} href={href} className="flex items-center gap-4">
+              <a key={label} href={href} className="group flex items-center gap-4">
                 <Icon />
-                <span className="font-helvetica text-[16px] font-extrabold text-white">{label}</span>
+                <span className="font-helvetica text-[16px] font-extrabold text-white transition-colors group-hover:text-haas-red">
+                  {label}
+                </span>
               </a>
             ))}
           </div>
-          <p className="mt-10 text-center text-[12px] font-semibold text-white">
+          <p className="mt-10 text-center text-[12px] font-semibold text-white/80">
             {redPunct("© Trackshift 2O26 · All rights reserved.")}
           </p>
         </div>
