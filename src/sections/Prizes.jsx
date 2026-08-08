@@ -1,3 +1,4 @@
+import React from "react";
 import { A, DIMS } from "../assets";
 import SpeedStreak from "../components/SpeedStreak";
 import { CheckerGlow, ProblemsGlow, SoftMask } from "../components/Glow";
@@ -142,7 +143,7 @@ export function Prizes() {
           {/* 114:224 — "INR" is hollow (transparent fill, white outline
               stroke); the number itself is solid white fill, no stroke. Two
               different treatments on one line, not one uniform style. */}
-          <p className="mt-2 text-[clamp(48px,10vw,94.7px)] font-extrabold leading-[0.95] lg:absolute lg:left-[385px] lg:top-[666px] lg:mt-0 lg:w-[666px] lg:text-center lg:leading-none">
+          <p className="mt-2 text-[clamp(32px,8vw,94.7px)] font-extrabold leading-[0.95] lg:absolute lg:left-[385px] lg:top-[666px] lg:mt-0 lg:w-[666px] lg:text-center lg:leading-none">
             <span style={{ color: "transparent", WebkitTextStroke: "0.89px #FFFFFF" }}>INR</span>
             <span className="text-white"> 1,75,OOO</span>
           </p>
@@ -172,7 +173,7 @@ export function Prizes() {
                 className="left-1/2 top-[868px] -z-10 hidden h-[27px] w-[317px] -translate-x-1/2 lg:block"
               />
             </div>
-            <p className="font-helvetica mt-3 max-w-[700px] text-center text-[16px] text-white lg:absolute lg:left-1/2 lg:top-[906px] lg:mt-0 lg:-translate-x-1/2 lg:text-[20px]">
+            <p className="font-helvetica mt-3 max-w-[700px] text-center text-[16px] text-white px-4 lg:absolute lg:left-1/2 lg:top-[906px] lg:mt-0 lg:-translate-x-1/2 lg:px-0 lg:text-[20px]">
               Internships at Mphasis office on live AI and innovation projects
             </p>
 
@@ -194,14 +195,14 @@ export function Prizes() {
                 delay={0.25}
                 strokeWidth={2}
                 restOpacity={0.5}
-                className="left-1/2 top-[990px] -z-10 hidden h-[27px] w-[568px] -translate-x-1/2 lg:block"
+                className="left-1/2 top-[990px] -z-10 hidden h-[568px] w-[568px] -translate-x-1/2 lg:block"
               />
             </div>
             <div className="mt-4 flex w-full flex-col items-center gap-[18px] lg:absolute lg:inset-x-0 lg:top-[1046px] lg:mt-0 lg:gap-[10px]">
               {DETAILS.map((d) => (
                 <p
                   key={d}
-                  className="font-helvetica text-center text-[14px] leading-[1.4] text-white lg:max-w-[880px] lg:text-[20px] lg:leading-[28px]"
+                  className="font-helvetica text-center text-[14px] leading-[1.4] text-white px-4 max-w-full lg:max-w-[880px] lg:px-0 lg:text-[20px] lg:leading-[28px]"
                 >
                   {d}
                 </p>
