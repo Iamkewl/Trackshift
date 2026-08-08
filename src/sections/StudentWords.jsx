@@ -1,3 +1,4 @@
+import React from "react";
 import SpeedStreak from "../components/SpeedStreak";
 import { CaretButton } from "../components/Caret";
 import CarouselNav from "../components/CarouselNav";
@@ -85,19 +86,15 @@ export function StudentWords() {
             {redPunct(slide.quote)}
           </blockquote>
           {/* `Frame 31` (114:383) — a bottom-anchored flex column, right-
-              aligned, gap 5px, NOT two independently-absolute paragraphs.
-              Two fixed-position paragraphs assumed the name always fits one
-              line; "Second last"/"Third last" wrap to two and collided with
-              the meta line below. The flex column reflows instead. */}
+              aligned, gap 5px, NOT two independently-absolute paragraphs. */}
           <figcaption className="absolute bottom-[40px] left-[625px] flex -translate-x-1/2 flex-col items-end gap-[5px] text-right">
             <p className="text-[34.7px] font-extrabold uppercase leading-[1.1] text-white">{slide.name}</p>
             <p className="text-[18.5px] font-medium text-white/80">{slide.meta}</p>
           </figcaption>
         </figure>
 
-        {/* Mobile card (237:537) — no border rail, just the outlined quote
-            mark sitting above the text on plain black. */}
-        <figure className="relative z-10 mx-auto my-8 flex w-[calc(100%-72px)] max-w-[320px] flex-col items-center px-6 text-center lg:hidden">
+        {/* Mobile card — responsive width & left-aligned text flow */}
+        <figure className="relative z-10 mx-auto my-6 flex w-full max-w-[360px] sm:max-w-[420px] flex-col items-start px-6 text-left lg:hidden">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none self-start font-black leading-none"
@@ -109,15 +106,15 @@ export function StudentWords() {
           >
             &ldquo;
           </span>
-          <blockquote className="font-helvetica -mt-4 max-w-[659px] whitespace-pre-line text-[16px] font-normal leading-[1.4] text-white">
+          <blockquote className="font-helvetica -mt-4 max-w-full whitespace-pre-line text-[15px] sm:text-[16px] font-normal leading-[1.4] text-white">
             {redPunct(slide.quote)}
           </blockquote>
-          <p className="mt-8 text-[28px] font-extrabold uppercase leading-none text-white">{slide.name}</p>
-          <p className="mt-2 text-[16px] font-medium text-white/80">{slide.meta}</p>
+          <p className="mt-6 text-[24px] sm:text-[28px] font-extrabold uppercase leading-none text-white">{slide.name}</p>
+          <p className="mt-1.5 text-[14px] sm:text-[16px] font-medium text-white/80">{slide.meta}</p>
         </figure>
 
-        {/* Mobile controls — see Leadership. */}
-        <CarouselNav index={index} count={SLIDES.length} setIndex={setIndex} className="relative z-10 pb-14" />
+        {/* Mobile controls */}
+        <CarouselNav index={index} count={SLIDES.length} setIndex={setIndex} className="relative z-10 pb-14 lg:pb-0" />
 
         <CaretButton
           dir="left"
